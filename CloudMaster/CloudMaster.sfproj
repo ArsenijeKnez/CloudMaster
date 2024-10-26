@@ -2,7 +2,7 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\Microsoft.VisualStudio.Azure.Fabric.MSBuild.1.7.6\build\Microsoft.VisualStudio.Azure.Fabric.Application.props" Condition="Exists('packages\Microsoft.VisualStudio.Azure.Fabric.MSBuild.1.7.6\build\Microsoft.VisualStudio.Azure.Fabric.Application.props')" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>ab70356f-7f3a-4009-9bf4-0d336de55e03</ProjectGuid>
+    <ProjectGuid>c645b9d8-c51a-4b27-9b9a-14035e79383a</ProjectGuid>
     <ProjectVersion>2.6</ProjectVersion>
     <MinToolsVersion>16.10</MinToolsVersion>
     <SupportedMSBuildNuGetPackageVersion>1.7.6</SupportedMSBuildNuGetPackageVersion>

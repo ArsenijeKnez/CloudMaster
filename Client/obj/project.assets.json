@@ -225,6 +225,54 @@
           }
         }
       },
+      "Microsoft.ServiceFabric.FabricTransport.Internal/7.1.2448": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.ServiceFabric": "[10.1.2448]"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.V2.dll": {},
+          "lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.V2.dll": {},
+          "lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux/lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.McgInterop.dll": {
+            "assetType": "runtime",
+            "rid": "linux"
+          },
+          "runtimes/linux/lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.V2.McgInterop.dll": {
+            "assetType": "runtime",
+            "rid": "linux"
+          },
+          "runtimes/linux/lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.V2.dll": {
+            "assetType": "runtime",
+            "rid": "linux"
+          },
+          "runtimes/linux/lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.dll": {
+            "assetType": "runtime",
+            "rid": "linux"
+          },
+          "runtimes/linux/lib/netstandard2.0/System.Private.CompilerServices.ICastable.dll": {
+            "assetType": "runtime",
+            "rid": "linux"
+          },
+          "runtimes/linux/lib/netstandard2.0/System.Private.Interop.dll": {
+            "assetType": "runtime",
+            "rid": "linux"
+          },
+          "runtimes/win/lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.V2.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          },
+          "runtimes/win/lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
       "Microsoft.ServiceFabric.Services/7.1.2448": {
         "type": "package",
         "dependencies": {
@@ -236,6 +284,20 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.ServiceFabric.Services.dll": {}
+        }
+      },
+      "Microsoft.ServiceFabric.Services.Remoting/7.1.2448": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.ServiceFabric.Diagnostics.Internal": "[7.1.2448]",
+          "Microsoft.ServiceFabric.FabricTransport.Internal": "[7.1.2448]",
+          "Microsoft.ServiceFabric.Services": "[7.1.2448]"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.Remoting.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.Remoting.dll": {}
         }
       },
       "System.Memory/4.5.3": {
@@ -350,6 +412,20 @@
           "runtimes/win/lib/netstandard2.0/Microsoft.ServiceFabric.Diagnostics.dll": {}
         }
       },
+      "Microsoft.ServiceFabric.FabricTransport.Internal/7.1.2448": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.ServiceFabric": "[10.1.2448]"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.V2.dll": {},
+          "lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.dll": {}
+        },
+        "runtime": {
+          "runtimes/win/lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.V2.dll": {},
+          "runtimes/win/lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.dll": {}
+        }
+      },
       "Microsoft.ServiceFabric.Services/7.1.2448": {
         "type": "package",
         "dependencies": {
@@ -361,6 +437,20 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.ServiceFabric.Services.dll": {}
+        }
+      },
+      "Microsoft.ServiceFabric.Services.Remoting/7.1.2448": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.ServiceFabric.Diagnostics.Internal": "[7.1.2448]",
+          "Microsoft.ServiceFabric.FabricTransport.Internal": "[7.1.2448]",
+          "Microsoft.ServiceFabric.Services": "[7.1.2448]"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.Remoting.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.Remoting.dll": {}
         }
       },
       "System.Memory/4.5.3": {
@@ -762,6 +852,73 @@
         "runtimes/win/lib/netstandard2.0/Microsoft.ServiceFabric.Diagnostics.dll"
       ]
     },
+    "Microsoft.ServiceFabric.FabricTransport.Internal/7.1.2448": {
+      "sha512": "SdaqjxgJe1L2f2B054wX/nnEHDEFlILRbsLdTyQ1GTT/nBCtseUa5K4l7NMpMo37UGPSizorD9Lqcqb6ubp1pg==",
+      "type": "package",
+      "path": "microsoft.servicefabric.fabrictransport.internal/7.1.2448",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "lib/net45/Microsoft.ServiceFabric.FabricTransport.V2.xml",
+        "lib/net45/Microsoft.ServiceFabric.FabricTransport.dll",
+        "lib/net45/Microsoft.ServiceFabric.FabricTransport.xml",
+        "lib/net451/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "lib/net451/Microsoft.ServiceFabric.FabricTransport.V2.xml",
+        "lib/net451/Microsoft.ServiceFabric.FabricTransport.dll",
+        "lib/net451/Microsoft.ServiceFabric.FabricTransport.xml",
+        "lib/net452/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "lib/net452/Microsoft.ServiceFabric.FabricTransport.V2.xml",
+        "lib/net452/Microsoft.ServiceFabric.FabricTransport.dll",
+        "lib/net452/Microsoft.ServiceFabric.FabricTransport.xml",
+        "lib/net46/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "lib/net46/Microsoft.ServiceFabric.FabricTransport.V2.xml",
+        "lib/net46/Microsoft.ServiceFabric.FabricTransport.dll",
+        "lib/net46/Microsoft.ServiceFabric.FabricTransport.xml",
+        "lib/net461/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "lib/net461/Microsoft.ServiceFabric.FabricTransport.V2.xml",
+        "lib/net461/Microsoft.ServiceFabric.FabricTransport.dll",
+        "lib/net461/Microsoft.ServiceFabric.FabricTransport.xml",
+        "lib/net462/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "lib/net462/Microsoft.ServiceFabric.FabricTransport.V2.xml",
+        "lib/net462/Microsoft.ServiceFabric.FabricTransport.dll",
+        "lib/net462/Microsoft.ServiceFabric.FabricTransport.xml",
+        "lib/net47/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "lib/net47/Microsoft.ServiceFabric.FabricTransport.V2.xml",
+        "lib/net47/Microsoft.ServiceFabric.FabricTransport.dll",
+        "lib/net47/Microsoft.ServiceFabric.FabricTransport.xml",
+        "lib/net471/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "lib/net471/Microsoft.ServiceFabric.FabricTransport.V2.xml",
+        "lib/net471/Microsoft.ServiceFabric.FabricTransport.dll",
+        "lib/net471/Microsoft.ServiceFabric.FabricTransport.xml",
+        "lib/net472/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "lib/net472/Microsoft.ServiceFabric.FabricTransport.V2.xml",
+        "lib/net472/Microsoft.ServiceFabric.FabricTransport.dll",
+        "lib/net472/Microsoft.ServiceFabric.FabricTransport.xml",
+        "lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.dll",
+        "microsoft.servicefabric.fabrictransport.internal.7.1.2448.nupkg.sha512",
+        "microsoft.servicefabric.fabrictransport.internal.nuspec",
+        "runtimes/linux/lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.McgInterop.dll",
+        "runtimes/linux/lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.V2.McgInterop.dll",
+        "runtimes/linux/lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "runtimes/linux/lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.dll",
+        "runtimes/linux/lib/netstandard2.0/System.Private.CompilerServices.ICastable.dll",
+        "runtimes/linux/lib/netstandard2.0/System.Private.Interop.dll",
+        "runtimes/win/lib/net461/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "runtimes/win/lib/net461/Microsoft.ServiceFabric.FabricTransport.dll",
+        "runtimes/win/lib/net462/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "runtimes/win/lib/net462/Microsoft.ServiceFabric.FabricTransport.dll",
+        "runtimes/win/lib/net47/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "runtimes/win/lib/net47/Microsoft.ServiceFabric.FabricTransport.dll",
+        "runtimes/win/lib/net471/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "runtimes/win/lib/net471/Microsoft.ServiceFabric.FabricTransport.dll",
+        "runtimes/win/lib/net472/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "runtimes/win/lib/net472/Microsoft.ServiceFabric.FabricTransport.dll",
+        "runtimes/win/lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.V2.dll",
+        "runtimes/win/lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.dll"
+      ]
+    },
     "Microsoft.ServiceFabric.Services/7.1.2448": {
       "sha512": "newlVETmiQkf0glme9fyATso3hbVdn720CDPjX1F42cvgZpq/HsU8L6MsbJr76AKlma8wnKa/qkMdbnAu9ojYQ==",
       "type": "package",
@@ -798,6 +955,42 @@
         "runtimes/win/lib/net472/Microsoft.ServiceFabric.Services.dll"
       ]
     },
+    "Microsoft.ServiceFabric.Services.Remoting/7.1.2448": {
+      "sha512": "wjEZNOlBzbqGztB2X1dSyq+D4yXVjEmhJXBFE7i+ThUOcm305VG70ohSTrFbaNJrbowMGU0RniRh60/kBNvaBw==",
+      "type": "package",
+      "path": "microsoft.servicefabric.services.remoting/7.1.2448",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/Microsoft.ServiceFabric.Services.Remoting.dll",
+        "lib/net45/Microsoft.ServiceFabric.Services.Remoting.xml",
+        "lib/net451/Microsoft.ServiceFabric.Services.Remoting.dll",
+        "lib/net451/Microsoft.ServiceFabric.Services.Remoting.xml",
+        "lib/net452/Microsoft.ServiceFabric.Services.Remoting.dll",
+        "lib/net452/Microsoft.ServiceFabric.Services.Remoting.xml",
+        "lib/net46/Microsoft.ServiceFabric.Services.Remoting.dll",
+        "lib/net46/Microsoft.ServiceFabric.Services.Remoting.xml",
+        "lib/net461/Microsoft.ServiceFabric.Services.Remoting.dll",
+        "lib/net461/Microsoft.ServiceFabric.Services.Remoting.xml",
+        "lib/net462/Microsoft.ServiceFabric.Services.Remoting.dll",
+        "lib/net462/Microsoft.ServiceFabric.Services.Remoting.xml",
+        "lib/net47/Microsoft.ServiceFabric.Services.Remoting.dll",
+        "lib/net47/Microsoft.ServiceFabric.Services.Remoting.xml",
+        "lib/net471/Microsoft.ServiceFabric.Services.Remoting.dll",
+        "lib/net471/Microsoft.ServiceFabric.Services.Remoting.xml",
+        "lib/net472/Microsoft.ServiceFabric.Services.Remoting.dll",
+        "lib/net472/Microsoft.ServiceFabric.Services.Remoting.xml",
+        "lib/netstandard2.0/Microsoft.ServiceFabric.Services.Remoting.dll",
+        "lib/netstandard2.0/Microsoft.ServiceFabric.Services.Remoting.xml",
+        "microsoft.servicefabric.services.remoting.7.1.2448.nupkg.sha512",
+        "microsoft.servicefabric.services.remoting.nuspec",
+        "runtimes/win/lib/net461/Microsoft.ServiceFabric.Services.Remoting.dll",
+        "runtimes/win/lib/net462/Microsoft.ServiceFabric.Services.Remoting.dll",
+        "runtimes/win/lib/net47/Microsoft.ServiceFabric.Services.Remoting.dll",
+        "runtimes/win/lib/net471/Microsoft.ServiceFabric.Services.Remoting.dll",
+        "runtimes/win/lib/net472/Microsoft.ServiceFabric.Services.Remoting.dll"
+      ]
+    },
     "System.Memory/4.5.3": {
       "sha512": "3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA==",
       "type": "package",
@@ -822,7 +1015,8 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "Microsoft.ServiceFabric.AspNetCore.Kestrel >= 7.1.2448"
+      "Microsoft.ServiceFabric.AspNetCore.Kestrel >= 7.1.2448",
+      "Microsoft.ServiceFabric.Services.Remoting >= 7.1.2448"
     ]
   },
   "packageFolders": {
@@ -867,6 +1061,10 @@
         "targetAlias": "net5.0",
         "dependencies": {
           "Microsoft.ServiceFabric.AspNetCore.Kestrel": {
+            "target": "Package",
+            "version": "[7.1.2448, )"
+          },
+          "Microsoft.ServiceFabric.Services.Remoting": {
             "target": "Package",
             "version": "[7.1.2448, )"
           }

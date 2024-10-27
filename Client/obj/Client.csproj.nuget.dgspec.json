@@ -45,6 +45,10 @@
             "Microsoft.ServiceFabric.AspNetCore.Kestrel": {
               "target": "Package",
               "version": "[7.1.2448, )"
+            },
+            "Microsoft.ServiceFabric.Services.Remoting": {
+              "target": "Package",
+              "version": "[7.1.2448, )"
             }
           },
           "imports": [

@@ -29,7 +29,11 @@
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\CloudMaster\\Common\\Common.csproj": {
+                "projectPath": "D:\\CloudMaster\\Common\\Common.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -43,6 +47,10 @@
           "targetAlias": "net5.0",
           "dependencies": {
             "Microsoft.ServiceFabric.Services": {
+              "target": "Package",
+              "version": "[7.1.2448, )"
+            },
+            "Microsoft.ServiceFabric.Services.Remoting": {
               "target": "Package",
               "version": "[7.1.2448, )"
             }
@@ -83,6 +91,21 @@
         "win7-x64": {
           "#import": []
         }
+      }
+    },
+    "D:\\CloudMaster\\Common\\Common.csproj": {
+      "restore": {
+        "projectUniqueName": "D:\\CloudMaster\\Common\\Common.csproj",
+        "projectName": "Common",
+        "projectPath": "D:\\CloudMaster\\Common\\Common.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
       }
     }
   }

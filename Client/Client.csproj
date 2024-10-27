@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.ServiceFabric.AspNetCore.Kestrel" Version="7.1.2448" />
+    <PackageReference Include="Microsoft.ServiceFabric.Services.Remoting" Version="7.1.2448" />
   </ItemGroup>
 
 </Project>

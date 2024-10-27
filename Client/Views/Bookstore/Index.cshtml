@@ -5,4 +5,29 @@
 <div class="text-center">
     <h1 class="display-4">Bookstore page</h1>
     <p>Home page for bookstore</p>
+
+    @model List<Client.Models.Book>
+
+    <h2>Available Books</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+<tr>
+    <td>@book.Title</td>
+    <td>@book.Author</td>
+    <td>@book.Price</td>
+    <td>@book.Stock</td>
+</tr>}
+        </tbody>
+    </table>
+    <a href="@Url.Action("EnlistPurchase", "Bookstore")">Enlist a Purchase</a>
 </div>

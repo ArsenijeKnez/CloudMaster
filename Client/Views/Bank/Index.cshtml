@@ -5,4 +5,29 @@
 <div class="text-center">
     <h1 class="display-4">Bank page</h1>
     <p>Home page for bank</p>
+
+    @model List<Client.Models.BankClient>
+
+    <h2>Client List</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var client in Model)
+            {
+<tr>
+    <td>@client.Id</td>
+    <td>@client.Name</td>
+    <td>@client.Email</td>
+</tr>}
+        </tbody>
+    </table>
+    <a href="@Url.Action("EnlistMoneyTransfer", "Bank")">Enlist Money Transfer</a>
 </div>
+
+

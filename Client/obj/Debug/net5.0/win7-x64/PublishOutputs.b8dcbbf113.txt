@@ -405,6 +405,9 @@ D:\CloudMaster\Client\obj\Debug\net5.0\win7-x64\PubTmp\Out\Microsoft.ServiceFabr
 D:\CloudMaster\Client\obj\Debug\net5.0\win7-x64\PubTmp\Out\Microsoft.ServiceFabric.ReliableCollection.Interop.dll
 D:\CloudMaster\Client\obj\Debug\net5.0\win7-x64\PubTmp\Out\Microsoft.ServiceFabric.Data.Interfaces.dll
 D:\CloudMaster\Client\obj\Debug\net5.0\win7-x64\PubTmp\Out\Microsoft.ServiceFabric.Diagnostics.dll
+D:\CloudMaster\Client\obj\Debug\net5.0\win7-x64\PubTmp\Out\Microsoft.ServiceFabric.FabricTransport.V2.dll
+D:\CloudMaster\Client\obj\Debug\net5.0\win7-x64\PubTmp\Out\Microsoft.ServiceFabric.FabricTransport.dll
 D:\CloudMaster\Client\obj\Debug\net5.0\win7-x64\PubTmp\Out\Microsoft.ServiceFabric.Services.dll
+D:\CloudMaster\Client\obj\Debug\net5.0\win7-x64\PubTmp\Out\Microsoft.ServiceFabric.Services.Remoting.dll
 D:\CloudMaster\Client\obj\Debug\net5.0\win7-x64\PubTmp\Out\Client.Views.dll
 D:\CloudMaster\Client\obj\Debug\net5.0\win7-x64\PubTmp\Out\Client.Views.pdb

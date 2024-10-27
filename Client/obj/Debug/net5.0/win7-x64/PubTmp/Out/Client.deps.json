@@ -34,6 +34,7 @@
       "Client/1.0.0": {
         "dependencies": {
           "Microsoft.ServiceFabric.AspNetCore.Kestrel": "7.1.2448",
+          "Microsoft.ServiceFabric.Services.Remoting": "7.1.2448",
           "Microsoft.AspNetCore.Antiforgery": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "5.0.0.0",
@@ -1803,6 +1804,15 @@
           "lib/netstandard2.0/Microsoft.ServiceFabric.Diagnostics.dll": {}
         }
       },
+      "Microsoft.ServiceFabric.FabricTransport.Internal/7.1.2448": {
+        "dependencies": {
+          "Microsoft.ServiceFabric": "10.1.2448"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.V2.dll": {},
+          "lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.dll": {}
+        }
+      },
       "Microsoft.ServiceFabric.Services/7.1.2448": {
         "dependencies": {
           "Microsoft.ServiceFabric.Data": "7.1.2448",
@@ -1812,12 +1822,23 @@
           "lib/netstandard2.0/Microsoft.ServiceFabric.Services.dll": {}
         }
       },
+      "Microsoft.ServiceFabric.Services.Remoting/7.1.2448": {
+        "dependencies": {
+          "Microsoft.ServiceFabric.Diagnostics.Internal": "7.1.2448",
+          "Microsoft.ServiceFabric.FabricTransport.Internal": "7.1.2448",
+          "Microsoft.ServiceFabric.Services": "7.1.2448"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.Remoting.dll": {}
+        }
+      },
       "System.Memory/4.5.3": {}
     },
     ".NETCoreApp,Version=v5.0/win7-x64": {
       "Client/1.0.0": {
         "dependencies": {
           "Microsoft.ServiceFabric.AspNetCore.Kestrel": "7.1.2448",
+          "Microsoft.ServiceFabric.Services.Remoting": "7.1.2448",
           "Microsoft.AspNetCore.Antiforgery": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Abstractions": "5.0.0.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "5.0.0.0",
@@ -3572,6 +3593,21 @@
           }
         }
       },
+      "Microsoft.ServiceFabric.FabricTransport.Internal/7.1.2448": {
+        "dependencies": {
+          "Microsoft.ServiceFabric": "10.1.2448"
+        },
+        "runtime": {
+          "runtimes/win/lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.V2.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.0.0"
+          },
+          "runtimes/win/lib/netstandard2.0/Microsoft.ServiceFabric.FabricTransport.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.0.0"
+          }
+        }
+      },
       "Microsoft.ServiceFabric.Services/7.1.2448": {
         "dependencies": {
           "Microsoft.ServiceFabric.Data": "7.1.2448",
@@ -3579,6 +3615,19 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.ServiceFabric.Services.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "7.1.4.0"
+          }
+        }
+      },
+      "Microsoft.ServiceFabric.Services.Remoting/7.1.2448": {
+        "dependencies": {
+          "Microsoft.ServiceFabric.Diagnostics.Internal": "7.1.2448",
+          "Microsoft.ServiceFabric.FabricTransport.Internal": "7.1.2448",
+          "Microsoft.ServiceFabric.Services": "7.1.2448"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.Remoting.dll": {
             "assemblyVersion": "6.0.0.0",
             "fileVersion": "7.1.4.0"
           }
@@ -3652,12 +3701,26 @@
       "path": "microsoft.servicefabric.diagnostics.internal/7.1.2448",
       "hashPath": "microsoft.servicefabric.diagnostics.internal.7.1.2448.nupkg.sha512"
     },
+    "Microsoft.ServiceFabric.FabricTransport.Internal/7.1.2448": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SdaqjxgJe1L2f2B054wX/nnEHDEFlILRbsLdTyQ1GTT/nBCtseUa5K4l7NMpMo37UGPSizorD9Lqcqb6ubp1pg==",
+      "path": "microsoft.servicefabric.fabrictransport.internal/7.1.2448",
+      "hashPath": "microsoft.servicefabric.fabrictransport.internal.7.1.2448.nupkg.sha512"
+    },
     "Microsoft.ServiceFabric.Services/7.1.2448": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-newlVETmiQkf0glme9fyATso3hbVdn720CDPjX1F42cvgZpq/HsU8L6MsbJr76AKlma8wnKa/qkMdbnAu9ojYQ==",
       "path": "microsoft.servicefabric.services/7.1.2448",
       "hashPath": "microsoft.servicefabric.services.7.1.2448.nupkg.sha512"
+    },
+    "Microsoft.ServiceFabric.Services.Remoting/7.1.2448": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wjEZNOlBzbqGztB2X1dSyq+D4yXVjEmhJXBFE7i+ThUOcm305VG70ohSTrFbaNJrbowMGU0RniRh60/kBNvaBw==",
+      "path": "microsoft.servicefabric.services.remoting/7.1.2448",
+      "hashPath": "microsoft.servicefabric.services.remoting.7.1.2448.nupkg.sha512"
     },
     "System.Memory/4.5.3": {
       "type": "package",

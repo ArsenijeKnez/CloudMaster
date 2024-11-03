@@ -104,6 +104,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\BookDTO.cs" />
+    <Compile Include="Dto\ClientDTO.cs" />
     <Compile Include="Interfaces\IValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

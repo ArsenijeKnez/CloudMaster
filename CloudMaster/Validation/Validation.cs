@@ -9,6 +9,7 @@ using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
 using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 using Common.Interfaces;
+using Common.Dto;
 
 namespace Validation
 {
@@ -25,7 +26,7 @@ namespace Validation
 
         #region IValidationImplementation
 
-        public async Task<List<string>> ListAvailableItems()
+        public async Task<List<BookDTO>> ListAvailableItems()
         {
     
             try
@@ -38,20 +39,20 @@ namespace Validation
             }
         }
 
-        public async Task<string> EnlistPurchase(long? bookId, uint? count)
+        public async Task<bool> EnlistPurchase(long? bookId, int? count)
         {
             if (bookId is null || count is null)
             {
-                return null!;
+                return false;
             }
 
             try
             {
-                return null;
+                return true;
             }
             catch (Exception e)
             {
-                return null!;
+                return false;
             }
         }
 
@@ -72,7 +73,7 @@ namespace Validation
             }
         }
 
-        public async Task<List<string>> ListClients()
+        public async Task<List<ClientDTO>> ListClients()
         {
             try
             {

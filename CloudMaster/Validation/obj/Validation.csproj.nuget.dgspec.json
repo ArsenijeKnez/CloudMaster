@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\CloudMaster\\CloudMaster\\Validation\\Validation.csproj": {}
+    "D:\\e5Cloud\\CloudMaster\\Validation\\Validation.csproj": {}
   },
   "projects": {
-    "D:\\CloudMaster\\CloudMaster\\Validation\\Validation.csproj": {
+    "D:\\e5Cloud\\CloudMaster\\Validation\\Validation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\CloudMaster\\CloudMaster\\Validation\\Validation.csproj",
+        "projectUniqueName": "D:\\e5Cloud\\CloudMaster\\Validation\\Validation.csproj",
         "projectName": "Validation",
-        "projectPath": "D:\\CloudMaster\\CloudMaster\\Validation\\Validation.csproj",
-        "packagesPath": "C:\\Users\\milen\\.nuget\\packages\\",
-        "outputPath": "D:\\CloudMaster\\CloudMaster\\Validation\\obj\\",
+        "projectPath": "D:\\e5Cloud\\CloudMaster\\Validation\\Validation.csproj",
+        "packagesPath": "C:\\Users\\Arsenije\\.nuget\\packages\\",
+        "outputPath": "D:\\e5Cloud\\CloudMaster\\Validation\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\milen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Arsenije\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\ServiceFabricSDK.config"
         ],
@@ -24,14 +28,15 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\Microsoft SDKs\\Service Fabric\\packages": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\CloudMaster\\Common\\Common.csproj": {
-                "projectPath": "D:\\CloudMaster\\Common\\Common.csproj"
+              "D:\\e5Cloud\\Common\\Common.csproj": {
+                "projectPath": "D:\\e5Cloud\\Common\\Common.csproj"
               }
             }
           }
@@ -40,6 +45,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -61,17 +71,34 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
           "downloadDependencies": [
             {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[5.0.0, 5.0.0]"
+            },
+            {
               "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
               "version": "[5.0.0, 5.0.0]"
             },
             {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[5.0.17, 5.0.17]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[5.0.0, 5.0.0]"
+            },
+            {
               "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[5.0.0, 5.0.0]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
               "version": "[5.0.0, 5.0.0]"
             },
             {
@@ -84,7 +111,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {
@@ -93,11 +120,11 @@
         }
       }
     },
-    "D:\\CloudMaster\\Common\\Common.csproj": {
+    "D:\\e5Cloud\\Common\\Common.csproj": {
       "restore": {
-        "projectUniqueName": "D:\\CloudMaster\\Common\\Common.csproj",
+        "projectUniqueName": "D:\\e5Cloud\\Common\\Common.csproj",
         "projectName": "Common",
-        "projectPath": "D:\\CloudMaster\\Common\\Common.csproj",
+        "projectPath": "D:\\e5Cloud\\Common\\Common.csproj",
         "frameworks": {
           "net472": {
             "projectReferences": {}

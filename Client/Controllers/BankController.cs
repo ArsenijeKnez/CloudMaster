@@ -9,8 +9,10 @@ namespace Client.Controllers
 {
     public class BankController : Controller
     {
-        public IActionResult Index()
+        private Communication _communication = new Communication();
+        public async Task<IActionResult> IndexAsync()
         {
+            _clients = await _communication.ListClients();
             return View(_clients);
         }
 

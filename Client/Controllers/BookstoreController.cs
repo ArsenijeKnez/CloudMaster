@@ -1,5 +1,7 @@
 ﻿using Client.Models;
+using Common.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.ServiceFabric.Services.Remoting.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +11,22 @@ namespace Client.Controllers
 {
     public class BookstoreController : Controller
     {
-        public IActionResult Index()
+        private Communication _communication = new Communication();
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View(_books);
+            List<Book> awBooks = await _communication.ListAvailableItemsAsync();
+            if (awBooks == null)
+                return View(_books);
+            else 
+                return View(awBooks);
         }
 
         private static List<Book> _books = new List<Book>
-    {
-        new Book { Id = 1, Title = "The Great Gatsby", Author = "F. Scott Fitzgerald", Price = 10.99, Stock = 10 },
-        new Book { Id = 2, Title = "1984", Author = "George Orwell", Price = 8.99, Stock = 5 }
-    };
+        {
+            new Book { Id = 1, Title = "The Great Gatsby", Author = "F. Scott Fitzgerald", Price = 10.99, Stock = 10 },
+            new Book { Id = 2, Title = "1984", Author = "George Orwell", Price = 8.99, Stock = 5 }
+        };
 
         private static List<Purchase> _purchases = new List<Purchase>();
 
@@ -30,7 +38,7 @@ namespace Client.Controllers
         }
 
         [HttpPost]
-        public IActionResult EnlistPurchase(int bookId, int quantity)
+        public async Task<IActionResult> EnlistPurchase(int bookId, int quantity)
         {
             var book = _books.FirstOrDefault(b => b.Id == bookId);
 
@@ -51,6 +59,8 @@ namespace Client.Controllers
 
             _purchases.Add(purchase);
             book.Stock -= quantity;
+
+            await _communication.EnlistPurchase(bookId, quantity);
 
             return RedirectToAction("ListAvailableItems");
         }

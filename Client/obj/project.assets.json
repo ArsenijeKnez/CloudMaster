@@ -106,10 +106,14 @@
           "Microsoft.ServiceFabric.Services": "[7.1.2448]"
         },
         "compile": {
-          "lib/net5.0/Microsoft.ServiceFabric.AspNetCore.dll": {}
+          "lib/net5.0/Microsoft.ServiceFabric.AspNetCore.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net5.0/Microsoft.ServiceFabric.AspNetCore.dll": {}
+          "lib/net5.0/Microsoft.ServiceFabric.AspNetCore.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.ServiceFabric.AspNetCore.Kestrel/7.1.2448": {
@@ -118,10 +122,14 @@
           "Microsoft.ServiceFabric.AspNetCore.Abstractions": "[7.1.2448]"
         },
         "compile": {
-          "lib/net5.0/Microsoft.ServiceFabric.AspNetCore.Kestrel.dll": {}
+          "lib/net5.0/Microsoft.ServiceFabric.AspNetCore.Kestrel.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net5.0/Microsoft.ServiceFabric.AspNetCore.Kestrel.dll": {}
+          "lib/net5.0/Microsoft.ServiceFabric.AspNetCore.Kestrel.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.ServiceFabric.Data/7.1.2448": {
@@ -280,10 +288,14 @@
           "Microsoft.ServiceFabric.Diagnostics.Internal": "[7.1.2448]"
         },
         "compile": {
-          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.dll": {}
+          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.dll": {}
+          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.ServiceFabric.Services.Remoting/7.1.2448": {
@@ -294,10 +306,14 @@
           "Microsoft.ServiceFabric.Services": "[7.1.2448]"
         },
         "compile": {
-          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.Remoting.dll": {}
+          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.Remoting.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.Remoting.dll": {}
+          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.Remoting.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Memory/4.5.3": {
@@ -307,6 +323,15 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "Common/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Common.dll": {}
         }
       }
     },
@@ -341,10 +366,14 @@
           "Microsoft.ServiceFabric.Services": "[7.1.2448]"
         },
         "compile": {
-          "lib/net5.0/Microsoft.ServiceFabric.AspNetCore.dll": {}
+          "lib/net5.0/Microsoft.ServiceFabric.AspNetCore.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net5.0/Microsoft.ServiceFabric.AspNetCore.dll": {}
+          "lib/net5.0/Microsoft.ServiceFabric.AspNetCore.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.ServiceFabric.AspNetCore.Kestrel/7.1.2448": {
@@ -353,10 +382,14 @@
           "Microsoft.ServiceFabric.AspNetCore.Abstractions": "[7.1.2448]"
         },
         "compile": {
-          "lib/net5.0/Microsoft.ServiceFabric.AspNetCore.Kestrel.dll": {}
+          "lib/net5.0/Microsoft.ServiceFabric.AspNetCore.Kestrel.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net5.0/Microsoft.ServiceFabric.AspNetCore.Kestrel.dll": {}
+          "lib/net5.0/Microsoft.ServiceFabric.AspNetCore.Kestrel.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.ServiceFabric.Data/7.1.2448": {
@@ -433,10 +466,14 @@
           "Microsoft.ServiceFabric.Diagnostics.Internal": "[7.1.2448]"
         },
         "compile": {
-          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.dll": {}
+          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.dll": {}
+          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.ServiceFabric.Services.Remoting/7.1.2448": {
@@ -447,10 +484,14 @@
           "Microsoft.ServiceFabric.Services": "[7.1.2448]"
         },
         "compile": {
-          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.Remoting.dll": {}
+          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.Remoting.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.Remoting.dll": {}
+          "lib/netstandard2.0/Microsoft.ServiceFabric.Services.Remoting.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Memory/4.5.3": {
@@ -460,6 +501,15 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "Common/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Common.dll": {}
         }
       }
     }
@@ -1011,28 +1061,39 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Common/1.0.0": {
+      "type": "project",
+      "path": "../Common/Common.csproj",
+      "msbuildProject": "../Common/Common.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "Common >= 1.0.0",
       "Microsoft.ServiceFabric.AspNetCore.Kestrel >= 7.1.2448",
       "Microsoft.ServiceFabric.Services.Remoting >= 7.1.2448"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\milen\\.nuget\\packages\\": {}
+    "C:\\Users\\Arsenije\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\CloudMaster\\Client\\Client.csproj",
+      "projectUniqueName": "D:\\e5Cloud\\Client\\Client.csproj",
       "projectName": "Client",
-      "projectPath": "D:\\CloudMaster\\Client\\Client.csproj",
-      "packagesPath": "C:\\Users\\milen\\.nuget\\packages\\",
-      "outputPath": "D:\\CloudMaster\\Client\\obj\\",
+      "projectPath": "D:\\e5Cloud\\Client\\Client.csproj",
+      "packagesPath": "C:\\Users\\Arsenije\\.nuget\\packages\\",
+      "outputPath": "D:\\e5Cloud\\Client\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\milen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Arsenije\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\ServiceFabricSDK.config"
       ],
@@ -1042,18 +1103,28 @@
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\Microsoft SDKs\\Service Fabric\\packages": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\e5Cloud\\Common\\Common.csproj": {
+              "projectPath": "D:\\e5Cloud\\Common\\Common.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -1075,17 +1146,34 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
         "downloadDependencies": [
           {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[5.0.0, 5.0.0]"
+          },
+          {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
             "version": "[5.0.0, 5.0.0]"
           },
           {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[5.0.17, 5.0.17]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[5.0.0, 5.0.0]"
+          },
+          {
             "name": "Microsoft.NETCore.App.Runtime.win-x64",
+            "version": "[5.0.0, 5.0.0]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
             "version": "[5.0.0, 5.0.0]"
           },
           {
@@ -1101,7 +1189,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303\\RuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {

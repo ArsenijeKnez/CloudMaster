@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "dgSpecHash": "djS6r1f31TU=",
+  "success": true,
+  "projectFilePath": "D:\\e5Cloud\\CloudMaster\\Validation\\Validation.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Arsenije\\.nuget\\packages\\microsoft.servicefabric\\10.1.2448\\microsoft.servicefabric.10.1.2448.nupkg.sha512",
+    "C:\\Users\\Arsenije\\.nuget\\packages\\microsoft.servicefabric.data\\7.1.2448\\microsoft.servicefabric.data.7.1.2448.nupkg.sha512",
+    "C:\\Users\\Arsenije\\.nuget\\packages\\microsoft.servicefabric.data.extensions\\7.1.2448\\microsoft.servicefabric.data.extensions.7.1.2448.nupkg.sha512",
+    "C:\\Users\\Arsenije\\.nuget\\packages\\microsoft.servicefabric.data.interfaces\\7.1.2448\\microsoft.servicefabric.data.interfaces.7.1.2448.nupkg.sha512",
+    "C:\\Users\\Arsenije\\.nuget\\packages\\microsoft.servicefabric.diagnostics.internal\\7.1.2448\\microsoft.servicefabric.diagnostics.internal.7.1.2448.nupkg.sha512",
+    "C:\\Users\\Arsenije\\.nuget\\packages\\microsoft.servicefabric.fabrictransport.internal\\7.1.2448\\microsoft.servicefabric.fabrictransport.internal.7.1.2448.nupkg.sha512",
+    "C:\\Users\\Arsenije\\.nuget\\packages\\microsoft.servicefabric.services\\7.1.2448\\microsoft.servicefabric.services.7.1.2448.nupkg.sha512",
+    "C:\\Users\\Arsenije\\.nuget\\packages\\microsoft.servicefabric.services.remoting\\7.1.2448\\microsoft.servicefabric.services.remoting.7.1.2448.nupkg.sha512",
+    "C:\\Users\\Arsenije\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
+    "C:\\Users\\Arsenije\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\5.0.0\\microsoft.windowsdesktop.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\Arsenije\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\Arsenije\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\5.0.0\\microsoft.aspnetcore.app.runtime.win-x64.5.0.0.nupkg.sha512",
+    "C:\\Users\\Arsenije\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\5.0.0\\microsoft.windowsdesktop.app.runtime.win-x64.5.0.0.nupkg.sha512",
+    "C:\\Users\\Arsenije\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\5.0.0\\microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512",
+    "C:\\Users\\Arsenije\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.17\\microsoft.netcore.app.host.win-x64.5.0.17.nupkg.sha512",
+    "C:\\Users\\Arsenije\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\5.0.0\\microsoft.netcore.app.runtime.win-x64.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

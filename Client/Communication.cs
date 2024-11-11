@@ -15,9 +15,12 @@ namespace Client
         public async Task<List<Book>> ListAvailableItemsAsync()
         {
             List<BookDTO> booksDTO = await _validationServices.ListAvailableItems();
+            if (booksDTO == null)
+                return null;
 
             List<Book> books = new List<Book>();
-            foreach (BookDTO bookDto in booksDTO) {
+            foreach (BookDTO bookDto in booksDTO)
+            {
 
                 books.Add(DtoMapper.ConvertToBook(bookDto));
             }
@@ -25,32 +28,22 @@ namespace Client
             return books;
         }
 
-        public async Task<bool> EnlistPurchase(long? bookId, int? count)
+        public async Task<bool> EnlistPurchase(int bookId, int count)
         {
-           bool result =  await _validationServices.EnlistPurchase(bookId, count);
-           return result;
+            bool result = await _validationServices.EnlistPurchase(bookId, count);
+            return result;
         }
 
-        public async Task<string> GetItemPrice(long? bookId)
+        public async Task<double> GetItemPrice(int bookId)
         {
-            if (bookId is null)
-            {
-                return null!;
-            }
-
-            try
-            {
-                return null;
-            }
-            catch (Exception e)
-            {
-                return null!;
-            }
+            return await _validationServices.GetItemPrice(bookId);
         }
 
         public async Task<List<BankClient>> ListClients()
         {
             List<ClientDTO> clientsDTO = await _validationServices.ListClients();
+            if (clientsDTO == null)
+                return null;
 
             List<BankClient> clients = new List<BankClient>();
             foreach (ClientDTO clientDto in clientsDTO)
@@ -62,23 +55,10 @@ namespace Client
             return clients;
         }
 
-        public async Task<string> EnlistMoneyTransfer(long? userSend, long? userReceive, double? amount)
+        public async Task<bool> EnlistMoneyTransfer(int userSend, int userReceive, double amount)
         {
-            if (userSend is null || userReceive is null || amount is null)
-            {
-                return null;
-            }
-
-
-            try
-            {
-                return null;
-            }
-            catch (Exception e)
-            {
-                return null!;
-            }
+            return await _validationServices.EnlistMoneyTransfer(userSend, userReceive, amount);
         }
-    
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32228.343
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "CloudMaster", "CloudMaster.sfproj", "{C645B9D8-C51A-4B27-9B9A-14035E79383A}"
 EndProject
@@ -10,6 +10,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Validation", "Validation\Validation.csproj", "{9722EF49-34F6-4CD1-B443-D7AA6D10B34B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "..\Common\Common.csproj", "{F7FE4A82-8BBC-4C0C-BF49-22DB5CCDFC8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionCoordinator", "TransactionCoordinator\TransactionCoordinator.csproj", "{E2AA1817-63EF-4530-8C3F-49295D3B50B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankService", "BankService\BankService.csproj", "{ACDA4DEC-2D4A-4E48-B79E-B9D7287E5CDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookstoreService", "BookstoreService\BookstoreService.csproj", "{F6C5EAEF-F9F9-4816-811E-E5E6333305E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +57,30 @@ Global
 		{F7FE4A82-8BBC-4C0C-BF49-22DB5CCDFC8F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F7FE4A82-8BBC-4C0C-BF49-22DB5CCDFC8F}.Release|x64.ActiveCfg = Release|Any CPU
 		{F7FE4A82-8BBC-4C0C-BF49-22DB5CCDFC8F}.Release|x64.Build.0 = Release|Any CPU
+		{E2AA1817-63EF-4530-8C3F-49295D3B50B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2AA1817-63EF-4530-8C3F-49295D3B50B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2AA1817-63EF-4530-8C3F-49295D3B50B8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E2AA1817-63EF-4530-8C3F-49295D3B50B8}.Debug|x64.Build.0 = Debug|Any CPU
+		{E2AA1817-63EF-4530-8C3F-49295D3B50B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2AA1817-63EF-4530-8C3F-49295D3B50B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2AA1817-63EF-4530-8C3F-49295D3B50B8}.Release|x64.ActiveCfg = Release|Any CPU
+		{E2AA1817-63EF-4530-8C3F-49295D3B50B8}.Release|x64.Build.0 = Release|Any CPU
+		{ACDA4DEC-2D4A-4E48-B79E-B9D7287E5CDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACDA4DEC-2D4A-4E48-B79E-B9D7287E5CDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACDA4DEC-2D4A-4E48-B79E-B9D7287E5CDE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{ACDA4DEC-2D4A-4E48-B79E-B9D7287E5CDE}.Debug|x64.Build.0 = Debug|Any CPU
+		{ACDA4DEC-2D4A-4E48-B79E-B9D7287E5CDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACDA4DEC-2D4A-4E48-B79E-B9D7287E5CDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACDA4DEC-2D4A-4E48-B79E-B9D7287E5CDE}.Release|x64.ActiveCfg = Release|Any CPU
+		{ACDA4DEC-2D4A-4E48-B79E-B9D7287E5CDE}.Release|x64.Build.0 = Release|Any CPU
+		{F6C5EAEF-F9F9-4816-811E-E5E6333305E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6C5EAEF-F9F9-4816-811E-E5E6333305E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6C5EAEF-F9F9-4816-811E-E5E6333305E0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F6C5EAEF-F9F9-4816-811E-E5E6333305E0}.Debug|x64.Build.0 = Debug|Any CPU
+		{F6C5EAEF-F9F9-4816-811E-E5E6333305E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6C5EAEF-F9F9-4816-811E-E5E6333305E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6C5EAEF-F9F9-4816-811E-E5E6333305E0}.Release|x64.ActiveCfg = Release|Any CPU
+		{F6C5EAEF-F9F9-4816-811E-E5E6333305E0}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

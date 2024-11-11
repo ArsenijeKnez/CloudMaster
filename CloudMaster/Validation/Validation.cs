@@ -28,7 +28,7 @@ namespace Validation
 
         public async Task<List<BookDTO>> ListAvailableItems()
         {
-    
+
             try
             {
                 return null;
@@ -39,9 +39,9 @@ namespace Validation
             }
         }
 
-        public async Task<bool> EnlistPurchase(long? bookId, int? count)
+        public async Task<bool> EnlistPurchase(int bookId, int count)
         {
-            if (bookId is null || count is null)
+            if (bookId < 0 || count < 0)
             {
                 return false;
             }
@@ -56,20 +56,20 @@ namespace Validation
             }
         }
 
-        public async Task<string> GetItemPrice(long? bookId)
+        public async Task<double> GetItemPrice(int bookId)
         {
-            if (bookId is null)
+            if (bookId < 0)
             {
-                return null!;
+                return -1;
             }
 
             try
             {
-                return null;
+                return 0;
             }
             catch (Exception e)
             {
-                return null!;
+                return -1;
             }
         }
 
@@ -87,21 +87,21 @@ namespace Validation
             }
         }
 
-        public async Task<string> EnlistMoneyTransfer(long? userSend, long? userReceive, double? amount)
+        public async Task<bool> EnlistMoneyTransfer(int userSend, int userReceive, double amount)
         {
-            if (userSend is null || userReceive is null || amount is null)
+            if (userSend < 0 || userReceive < 0 || amount < 0)
             {
-                return null;
+                return false;
             }
 
 
             try
             {
-                return null;
+                return true;
             }
             catch (Exception e)
             {
-                return null!;
+                return false;
             }
         }
 

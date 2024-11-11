@@ -32,67 +32,67 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.ServiceFabric.Data, Version=10.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
-      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.Data.7.1.2448\lib\net472\Microsoft.ServiceFabric.Data.dll</HintPath>
+      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.Data.7.1.2493\lib\net472\Microsoft.ServiceFabric.Data.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ServiceFabric.Data.Extensions, Version=1.4.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.Data.Extensions.7.1.2448\lib\net472\Microsoft.ServiceFabric.Data.Extensions.dll</HintPath>
+      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.Data.Extensions.7.1.2493\lib\net472\Microsoft.ServiceFabric.Data.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ServiceFabric.Data.Interfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
-      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.Data.Interfaces.7.1.2448\lib\net472\Microsoft.ServiceFabric.Data.Interfaces.dll</HintPath>
+      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.Data.Interfaces.7.1.2493\lib\net472\Microsoft.ServiceFabric.Data.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ServiceFabric.Diagnostics, Version=10.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
-      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.Diagnostics.Internal.7.1.2448\lib\net472\Microsoft.ServiceFabric.Diagnostics.dll</HintPath>
+      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.Diagnostics.Internal.7.1.2493\lib\net472\Microsoft.ServiceFabric.Diagnostics.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ServiceFabric.FabricTransport, Version=10.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
-      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.FabricTransport.Internal.7.1.2448\lib\net472\Microsoft.ServiceFabric.FabricTransport.dll</HintPath>
+      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.FabricTransport.Internal.7.1.2493\lib\net472\Microsoft.ServiceFabric.FabricTransport.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ServiceFabric.FabricTransport.V2, Version=10.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
-      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.FabricTransport.Internal.7.1.2448\lib\net472\Microsoft.ServiceFabric.FabricTransport.V2.dll</HintPath>
+      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.FabricTransport.Internal.7.1.2493\lib\net472\Microsoft.ServiceFabric.FabricTransport.V2.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ServiceFabric.Internal, Version=10.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
-      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.10.1.2448\lib\net472\Microsoft.ServiceFabric.Internal.dll</HintPath>
+      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.10.1.2493\lib\net472\Microsoft.ServiceFabric.Internal.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ServiceFabric.Internal.Strings, Version=10.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
-      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.10.1.2448\lib\net472\Microsoft.ServiceFabric.Internal.Strings.dll</HintPath>
+      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.10.1.2493\lib\net472\Microsoft.ServiceFabric.Internal.Strings.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ServiceFabric.Preview, Version=10.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
-      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.10.1.2448\lib\net472\Microsoft.ServiceFabric.Preview.dll</HintPath>
+      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.10.1.2493\lib\net472\Microsoft.ServiceFabric.Preview.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ServiceFabric.ReliableCollection.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.Data.Extensions.7.1.2448\lib\net472\Microsoft.ServiceFabric.ReliableCollection.Interop.dll</HintPath>
+      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.Data.Extensions.7.1.2493\lib\net472\Microsoft.ServiceFabric.ReliableCollection.Interop.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ServiceFabric.Services, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.Services.7.1.2448\lib\net472\Microsoft.ServiceFabric.Services.dll</HintPath>
+      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.Services.7.1.2493\lib\net472\Microsoft.ServiceFabric.Services.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ServiceFabric.Services.Remoting, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.Services.Remoting.7.1.2448\lib\net472\Microsoft.ServiceFabric.Services.Remoting.dll</HintPath>
+      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.Services.Remoting.7.1.2493\lib\net472\Microsoft.ServiceFabric.Services.Remoting.dll</HintPath>
     </Reference>
     <Reference Include="StartupServicesModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
-      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.10.1.2448\lib\net472\StartupServicesModel.dll</HintPath>
+      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.10.1.2493\lib\net472\StartupServicesModel.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\CloudMaster\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\CloudMaster\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Fabric, Version=10.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
-      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.10.1.2448\lib\net472\System.Fabric.dll</HintPath>
+      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.10.1.2493\lib\net472\System.Fabric.dll</HintPath>
     </Reference>
     <Reference Include="System.Fabric.Management.ServiceModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
-      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.10.1.2448\lib\net472\System.Fabric.Management.ServiceModel.dll</HintPath>
+      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.10.1.2493\lib\net472\System.Fabric.Management.ServiceModel.dll</HintPath>
     </Reference>
     <Reference Include="System.Fabric.Strings, Version=10.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
-      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.10.1.2448\lib\net472\System.Fabric.Strings.dll</HintPath>
+      <HintPath>..\CloudMaster\packages\Microsoft.ServiceFabric.10.1.2493\lib\net472\System.Fabric.Strings.dll</HintPath>
     </Reference>
-    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\CloudMaster\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\CloudMaster\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\CloudMaster\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\CloudMaster\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\CloudMaster\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\CloudMaster\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -106,6 +106,11 @@
   <ItemGroup>
     <Compile Include="Dto\BookDTO.cs" />
     <Compile Include="Dto\ClientDTO.cs" />
+    <Compile Include="Dto\TransferDTO.cs" />
+    <Compile Include="Interfaces\IBankService.cs" />
+    <Compile Include="Interfaces\IBookstoreService.cs" />
+    <Compile Include="Interfaces\ITransaction.cs" />
+    <Compile Include="Interfaces\ITransactionCoordinator.cs" />
     <Compile Include="Interfaces\IValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

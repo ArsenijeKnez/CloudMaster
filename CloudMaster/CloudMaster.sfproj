@@ -33,13 +33,16 @@
     <None Include="StartupServices.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Client\Client.csproj">
       <ServiceLaunchUrl>http://localhost:{ServicePort}/</ServiceLaunchUrl>
     </ProjectReference>
+    <ProjectReference Include="BankService\BankService.csproj" />
+    <ProjectReference Include="BookstoreService\BookstoreService.csproj" />
+    <ProjectReference Include="TransactionCoordinator\TransactionCoordinator.csproj" />
     <ProjectReference Include="Validation\Validation.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <PropertyGroup>

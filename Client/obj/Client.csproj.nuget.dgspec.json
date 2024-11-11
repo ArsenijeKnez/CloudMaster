@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\e5Cloud\\Client\\Client.csproj": {}
+    "D:\\cloude5\\Client\\Client.csproj": {}
   },
   "projects": {
-    "D:\\e5Cloud\\Client\\Client.csproj": {
+    "D:\\cloude5\\Client\\Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\e5Cloud\\Client\\Client.csproj",
+        "projectUniqueName": "D:\\cloude5\\Client\\Client.csproj",
         "projectName": "Client",
-        "projectPath": "D:\\e5Cloud\\Client\\Client.csproj",
+        "projectPath": "D:\\cloude5\\Client\\Client.csproj",
         "packagesPath": "C:\\Users\\Arsenije\\.nuget\\packages\\",
-        "outputPath": "D:\\e5Cloud\\Client\\obj\\",
+        "outputPath": "D:\\cloude5\\Client\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -35,8 +35,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\e5Cloud\\Common\\Common.csproj": {
-                "projectPath": "D:\\e5Cloud\\Common\\Common.csproj"
+              "D:\\cloude5\\Common\\Common.csproj": {
+                "projectPath": "D:\\cloude5\\Common\\Common.csproj"
               }
             }
           }
@@ -58,11 +58,11 @@
           "dependencies": {
             "Microsoft.ServiceFabric.AspNetCore.Kestrel": {
               "target": "Package",
-              "version": "[7.1.2448, )"
+              "version": "[7.1.2493, )"
             },
             "Microsoft.ServiceFabric.Services.Remoting": {
               "target": "Package",
-              "version": "[7.1.2448, )"
+              "version": "[7.1.2493, )"
             }
           },
           "imports": [
@@ -78,27 +78,11 @@
           "warn": true,
           "downloadDependencies": [
             {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
               "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
               "version": "[5.0.0, 5.0.0]"
             },
             {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[5.0.17, 5.0.17]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
               "name": "Microsoft.NETCore.App.Runtime.win-x64",
-              "version": "[5.0.0, 5.0.0]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
               "version": "[5.0.0, 5.0.0]"
             },
             {
@@ -123,11 +107,11 @@
         }
       }
     },
-    "D:\\e5Cloud\\Common\\Common.csproj": {
+    "D:\\cloude5\\Common\\Common.csproj": {
       "restore": {
-        "projectUniqueName": "D:\\e5Cloud\\Common\\Common.csproj",
+        "projectUniqueName": "D:\\cloude5\\Common\\Common.csproj",
         "projectName": "Common",
-        "projectPath": "D:\\e5Cloud\\Common\\Common.csproj",
+        "projectPath": "D:\\cloude5\\Common\\Common.csproj",
         "frameworks": {
           "net472": {
             "projectReferences": {}

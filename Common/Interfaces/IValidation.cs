@@ -12,12 +12,12 @@ namespace Common.Interfaces
     {
         Task<List<BookDTO>> ListAvailableItems();
 
-        Task<bool> EnlistPurchase(long? bookId, int? count);
+        Task<bool> EnlistPurchase(int bookId, int count);
 
-        Task<string> GetItemPrice(long? bookId);
+        Task<double> GetItemPrice(int bookId);
 
         Task<List<ClientDTO>> ListClients();
 
-        Task<string> EnlistMoneyTransfer(long? userSend, long? userReceive, double? amount);
+        Task<bool> EnlistMoneyTransfer(int userSend, int userReceive, double amount);
     }
 }

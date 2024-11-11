@@ -15,25 +15,18 @@ namespace Client.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<Book> awBooks = await _communication.ListAvailableItemsAsync();
-            if (awBooks == null)
-                return View(_books);
-            else 
-                return View(awBooks);
+            _books = await _communication.ListAvailableItemsAsync();
+            return View(_books);
+
         }
 
-        private static List<Book> _books = new List<Book>
-        {
-            new Book { Id = 1, Title = "The Great Gatsby", Author = "F. Scott Fitzgerald", Price = 10.99, Stock = 10 },
-            new Book { Id = 2, Title = "1984", Author = "George Orwell", Price = 8.99, Stock = 5 }
-        };
-
+        private static List<Book> _books = new List<Book>();
         private static List<Purchase> _purchases = new List<Purchase>();
 
         [HttpGet]
         public IActionResult EnlistPurchase()
         {
-            ViewBag.Books = _books; 
+            ViewBag.Books = _books;
             return View();
         }
 
@@ -49,32 +42,21 @@ namespace Client.Controllers
                 return View();
             }
 
-            var purchase = new Purchase
+            if (!await _communication.EnlistPurchase(bookId, quantity))
             {
-                Id = _purchases.Count + 1,
-                BookId = bookId,
-                Quantity = quantity,
-                PurchaseDate = DateTime.Now
-            };
-
-            _purchases.Add(purchase);
-            book.Stock -= quantity;
-
-            await _communication.EnlistPurchase(bookId, quantity);
+                ModelState.AddModelError("", "Invalid purchase details.");
+                ViewBag.Books = _books;
+                return View();
+            }
 
             return RedirectToAction("ListAvailableItems");
         }
 
         [HttpGet]
-        public IActionResult GetItemPrice(int id)
+        public async Task<IActionResult> GetItemPriceAsync(int id)
         {
-            var book = _books.FirstOrDefault(b => b.Id == id);
-            if (book == null)
-            {
-                return NotFound("Book not found.");
-            }
-
-            return Json(new { price = book.Price });
+            double price = await _communication.GetItemPrice(id);
+            return Json(new { price });
         }
     }
 }

@@ -16,24 +16,19 @@ namespace Client.Controllers
             return View(_clients);
         }
 
-        private static List<BankClient> _clients = new List<BankClient> 
-        {
-            new BankClient { Id = 1, Name = "John Doe", Email = "john@example.com" },
-            new BankClient { Id = 2, Name = "Jane Smith", Email = "jane@example.com" }
-        };
-
+        private static List<BankClient> _clients = new List<BankClient>();
         private static List<MoneyTransfer> _transfers = new List<MoneyTransfer>();
 
 
         [HttpGet]
         public IActionResult EnlistMoneyTransfer()
         {
-            ViewBag.Clients = _clients; 
+            ViewBag.Clients = _clients;
             return View();
         }
 
         [HttpPost]
-        public IActionResult EnlistMoneyTransfer(int fromClientId, int toClientId, double amount)
+        public async Task<IActionResult> EnlistMoneyTransferAsync(int fromClientId, int toClientId, double amount)
         {
             if (fromClientId == toClientId || amount <= 0)
             {
@@ -42,15 +37,13 @@ namespace Client.Controllers
                 return View();
             }
 
-            var transfer = new MoneyTransfer
+            bool done = await _communication.EnlistMoneyTransfer(fromClientId, toClientId, amount);
+            if (!done)
             {
-                Id = _transfers.Count + 1,
-                FromClientId = fromClientId,
-                ToClientId = toClientId,
-                Amount = amount,
-            };
-
-            _transfers.Add(transfer);
+                ModelState.AddModelError("", "Invalid transfer");
+                ViewBag.Clients = _clients;
+                return View();
+            }
             return RedirectToAction("Index");
         }
     }

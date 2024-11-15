@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\cloude5\\CloudMaster\\BankService\\BankService.csproj": {}
+    "D:\\CLOUDDD\\CloudMaster\\CloudMaster\\BankService\\BankService.csproj": {}
   },
   "projects": {
-    "D:\\cloude5\\CloudMaster\\BankService\\BankService.csproj": {
+    "D:\\CLOUDDD\\CloudMaster\\CloudMaster\\BankService\\BankService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\cloude5\\CloudMaster\\BankService\\BankService.csproj",
+        "projectUniqueName": "D:\\CLOUDDD\\CloudMaster\\CloudMaster\\BankService\\BankService.csproj",
         "projectName": "BankService",
-        "projectPath": "D:\\cloude5\\CloudMaster\\BankService\\BankService.csproj",
+        "projectPath": "D:\\CLOUDDD\\CloudMaster\\CloudMaster\\BankService\\BankService.csproj",
         "packagesPath": "C:\\Users\\Arsenije\\.nuget\\packages\\",
-        "outputPath": "D:\\cloude5\\CloudMaster\\BankService\\obj\\",
+        "outputPath": "D:\\CLOUDDD\\CloudMaster\\CloudMaster\\BankService\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -34,7 +34,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj": {
+                "projectPath": "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -98,6 +102,21 @@
         "win-x64": {
           "#import": []
         }
+      }
+    },
+    "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj": {
+      "restore": {
+        "projectUniqueName": "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj",
+        "projectName": "Common",
+        "projectPath": "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
       }
     }
   }

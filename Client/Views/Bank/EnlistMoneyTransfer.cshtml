@@ -4,31 +4,40 @@
 
 <h2>Enlist Money Transfer</h2>
 
-<form asp-action="EnlistMoneyTransfer" method="post">
-    <div class="form-group">
-        <label>From Client</label>
-        <select name="fromClientId" class="form-control">
-            @foreach (var client in ViewBag.Clients as List<Client.Models.BankClient>)
-            {
-                <option value="@client.Id">@client.Name</option>
-            }
-        </select>
-    </div>
+@if (ViewBag.Clients == null || !(ViewBag.Clients as List<Client.Models.BankClient>).Any())
+{
+    <p>No clients are available for a money transfer.</p>
+}
+else
+{
+    <form asp-action="EnlistMoneyTransfer" method="post">
+        <div class="form-group">
+            <label for="fromClientId">From Client</label>
+            <select id="fromClientId" name="fromClientId" class="form-control" required>
+                <option value="" disabled selected>Select a client</option>
+                @foreach (var client in ViewBag.Clients as List<Client.Models.BankClient>)
+                {
+                    <option value="@client.Id">@client.Name</option>
+                }
+            </select>
+        </div>
 
-    <div class="form-group">
-        <label>To Client</label>
-        <select name="toClientId" class="form-control">
-            @foreach (var client in ViewBag.Clients as List<Client.Models.BankClient>)
-            {
-                <option value="@client.Id">@client.Name</option>
-            }
-        </select>
-    </div>
+        <div class="form-group">
+            <label for="toClientId">To Client</label>
+            <select id="toClientId" name="toClientId" class="form-control" required>
+                <option value="" disabled selected>Select a client</option>
+                @foreach (var client in ViewBag.Clients as List<Client.Models.BankClient>)
+                {
+                    <option value="@client.Id">@client.Name</option>
+                }
+            </select>
+        </div>
 
-    <div class="form-group">
-        <label>Amount</label>
-        <input type="number" name="amount" class="form-control" step="0.01" />
-    </div>
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input id="amount" type="number" name="amount" class="form-control" step="0.01" min="0.01" required />
+        </div>
 
-    <button type="submit" class="btn btn-primary">Submit Transfer</button>
-</form>
+        <button type="submit" class="btn btn-primary">Submit Transfer</button>
+    </form>
+}

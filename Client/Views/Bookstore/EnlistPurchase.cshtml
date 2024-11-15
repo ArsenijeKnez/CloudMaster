@@ -1,25 +1,32 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Enlist Purchase";
 }
 
 <h2>Enlist Purchase</h2>
 
-<form asp-action="EnlistPurchase" method="post">
-    <div class="form-group">
-        <label>Select Book</label>
-        <select name="bookId" class="form-control">
-            @foreach (var book in ViewBag.Books as List<Client.Models.Book>)
-            {
-                <option value="@book.Id">@book.Title</option>
-            }
-        </select>
-    </div>
+@if (ViewBag.Books == null || !(ViewBag.Books as List<Client.Models.Book>).Any())
+{
+    <p>No books are available for purchase.</p>
+}
+else
+{
+    <form asp-action="EnlistPurchase" method="post">
+        <div class="form-group">
+            <label for="bookId">Select Book</label>
+            <select id="bookId" name="bookId" class="form-control" required>
+                <option value="" disabled selected>Select a book</option>
+                @foreach (var book in ViewBag.Books as List<Client.Models.Book>)
+                {
+                    <option value="@book.Id">@book.Title</option>
+                }
+            </select>
+        </div>
 
-    <div class="form-group">
-        <label>Quantity</label>
-        <input type="number" name="quantity" class="form-control" min="1" />
-    </div>
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input id="quantity" type="number" name="quantity" class="form-control" min="1" required />
+        </div>
 
-    <button type="submit" class="btn btn-primary">Submit Purchase</button>
-</form>
+        <button type="submit" class="btn btn-primary">Submit Purchase</button>
+    </form>
+}

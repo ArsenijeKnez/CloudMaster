@@ -12,10 +12,10 @@ namespace Common.Interfaces
     public interface ITransaction
     {
         [OperationContract]
-        bool Prepare();
+        Task<bool> Prepare();
         [OperationContract]
-        void Commit();
+        Task Commit();
         [OperationContract]
-        void RollBack();
+        Task RollBack();
     }
 }

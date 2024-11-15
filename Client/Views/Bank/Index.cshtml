@@ -9,25 +9,33 @@
     @model List<Client.Models.BankClient>
 
     <h2>Client List</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var client in Model)
-            {
-<tr>
-    <td>@client.Id</td>
-    <td>@client.Name</td>
-    <td>@client.Email</td>
-</tr>}
-        </tbody>
-    </table>
+
+    @if (Model == null || !Model.Any())
+    {
+        <p>No clients are currently available.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var client in Model)
+                {
+                    <tr>
+                        <td>@client.Id</td>
+                        <td>@client.Name</td>
+                        <td>@client.Email</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
     <a href="@Url.Action("EnlistMoneyTransfer", "Bank")">Enlist Money Transfer</a>
 </div>
-
-

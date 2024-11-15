@@ -1082,11 +1082,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\cloude5\\Client\\Client.csproj",
+      "projectUniqueName": "D:\\CLOUDDD\\CloudMaster\\Client\\Client.csproj",
       "projectName": "Client",
-      "projectPath": "D:\\cloude5\\Client\\Client.csproj",
+      "projectPath": "D:\\CLOUDDD\\CloudMaster\\Client\\Client.csproj",
       "packagesPath": "C:\\Users\\Arsenije\\.nuget\\packages\\",
-      "outputPath": "D:\\cloude5\\Client\\obj\\",
+      "outputPath": "D:\\CLOUDDD\\CloudMaster\\Client\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1110,8 +1110,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\cloude5\\Common\\Common.csproj": {
-              "projectPath": "D:\\cloude5\\Common\\Common.csproj"
+            "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj": {
+              "projectPath": "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj"
             }
           }
         }

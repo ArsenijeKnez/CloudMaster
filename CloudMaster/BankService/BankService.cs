@@ -1,68 +1,176 @@
 using System;
 using System.Collections.Generic;
 using System.Fabric;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.ServiceFabric.Data;
 using Microsoft.ServiceFabric.Data.Collections;
-using Microsoft.ServiceFabric.Services.Communication.Runtime;
+using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
+using Common.Interfaces;
+using Common.Dto;
+using Microsoft.ServiceFabric.Services.Communication.Runtime;
 
 namespace BankService
 {
-    /// <summary>
-    /// An instance of this class is created for each service replica by the Service Fabric runtime.
-    /// </summary>
-    internal sealed class BankService : StatefulService
+    internal sealed class BankService : StatefulService, IBankService
     {
         public BankService(StatefulServiceContext context)
-            : base(context)
-        { }
+            : base(context) { }
 
-        /// <summary>
-        /// Optional override to create listeners (e.g., HTTP, Service Remoting, WCF, etc.) for this service replica to handle client or user requests.
-        /// </summary>
-        /// <remarks>
-        /// For more information on service communication, see https://aka.ms/servicefabricservicecommunication
-        /// </remarks>
-        /// <returns>A collection of listeners.</returns>
+        #region IBankImplementation
+
+        public async Task<List<ClientDTO>> ListClients()
+        {
+            var clients = new List<ClientDTO>();
+            var clientsDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, ClientDTO>>("clients");
+
+            using (var tx = StateManager.CreateTransaction())
+            {
+                var allClients = await clientsDict.CreateEnumerableAsync(tx);
+                using (var asyncEnumerator = allClients.GetAsyncEnumerator())
+                {
+                    while (await asyncEnumerator.MoveNextAsync(CancellationToken.None))
+                    {
+                        var kvp = asyncEnumerator.Current;
+                        clients.Add(kvp.Value);
+                    }
+                }
+
+                await tx.CommitAsync();
+            }
+
+            return clients;
+        }
+
+
+        public async Task<bool> EnlistMoneyTransfer(int userSend, int userReceive, double amount)
+        {
+            var transfersDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, TransferDTO>>("transfers");
+
+            using (var tx = StateManager.CreateTransaction())
+            {
+                int transferId = (int)DateTime.UtcNow.Ticks; 
+                var transfer = new TransferDTO
+                {
+                    Id = transferId,
+                    SenderId = userSend,
+                    ReceiverId = userReceive,
+                    Amount = amount,
+                    Status = "Pending"
+                };
+
+                await transfersDict.AddOrUpdateAsync(tx, transferId, transfer, (id, oldValue) => transfer);
+                await tx.CommitAsync();
+            }
+
+            return true;
+        }
+
+        #endregion
+
+        #region ITransaction
+
+        public async Task<bool> Prepare()
+        {
+            var transfersDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, TransferDTO>>("transfers");
+
+            using (var tx = StateManager.CreateTransaction())
+            {
+                var pendingTransfers = await transfersDict.CreateEnumerableAsync(tx);
+                using (var asyncEnumerator = pendingTransfers.GetAsyncEnumerator())
+                {
+                    while (await asyncEnumerator.MoveNextAsync(CancellationToken.None))
+                    {
+                        var transfer = asyncEnumerator.Current;
+                        if (transfer.Value.Status == "Pending")
+                        {
+                            return true;
+                        }
+                    }
+                }
+
+                await tx.CommitAsync();
+            }
+
+            return false;
+        }
+
+
+        public async Task Commit()
+        {
+            var clientsDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, ClientDTO>>("clients");
+            var transfersDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, TransferDTO>>("transfers");
+
+            using (var tx = StateManager.CreateTransaction())
+            {
+                var pendingTransfers = await transfersDict.CreateEnumerableAsync(tx);
+                using (var asyncEnumerator = pendingTransfers.GetAsyncEnumerator())
+                {
+                    while (await asyncEnumerator.MoveNextAsync(CancellationToken.None))
+                    {
+                        var transfer = asyncEnumerator.Current;
+                        if (transfer.Value.Status == "Pending")
+                        {
+                            var sender = await clientsDict.TryGetValueAsync(tx, transfer.Value.SenderId);
+                            var receiver = await clientsDict.TryGetValueAsync(tx, transfer.Value.ReceiverId);
+
+                            if (sender.HasValue && receiver.HasValue)
+                            {
+                                var senderUpdated = sender.Value;
+                                var receiverUpdated = receiver.Value;
+
+                                senderUpdated.Balance -= transfer.Value.Amount;
+                                receiverUpdated.Balance += transfer.Value.Amount;
+
+                                await clientsDict.AddOrUpdateAsync(tx, senderUpdated.Id, senderUpdated, (id, oldValue) => senderUpdated);
+                                await clientsDict.AddOrUpdateAsync(tx, receiverUpdated.Id, receiverUpdated, (id, oldValue) => receiverUpdated);
+
+                                var updatedTransfer = transfer.Value;
+                                updatedTransfer.Status = "Committed";
+                                await transfersDict.AddOrUpdateAsync(tx, updatedTransfer.Id, updatedTransfer, (id, oldValue) => updatedTransfer);
+                            }
+                        }
+                    }
+                }
+
+                await tx.CommitAsync();
+            }
+        }
+
+        public async Task RollBack()
+        {
+            var transfersDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, TransferDTO>>("transfers");
+
+            using (var tx = StateManager.CreateTransaction())
+            {
+                var pendingTransfers = await transfersDict.CreateEnumerableAsync(tx);
+                using (var asyncEnumerator = pendingTransfers.GetAsyncEnumerator())
+                {
+                    while (await asyncEnumerator.MoveNextAsync(CancellationToken.None))
+                    {
+                        var transfer = asyncEnumerator.Current;
+                        if (transfer.Value.Status == "Pending")
+                        {
+                            var rolledBackTransfer = transfer.Value;
+                            rolledBackTransfer.Status = "RolledBack";
+
+                            await transfersDict.AddOrUpdateAsync(tx, rolledBackTransfer.Id, rolledBackTransfer, (id, oldValue) => rolledBackTransfer);
+                        }
+                    }
+                }
+
+                await tx.CommitAsync();
+            }
+        }
+
+
+        #endregion
+
         protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
         {
             return new ServiceReplicaListener[0];
         }
-
-        /// <summary>
-        /// This is the main entry point for your service replica.
-        /// This method executes when this replica of your service becomes primary and has write status.
-        /// </summary>
-        /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service replica.</param>
-        protected override async Task RunAsync(CancellationToken cancellationToken)
-        {
-            // TODO: Replace the following sample code with your own logic 
-            //       or remove this RunAsync override if it's not needed in your service.
-
-            var myDictionary = await this.StateManager.GetOrAddAsync<IReliableDictionary<string, long>>("myDictionary");
-
-            while (true)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-
-                using (var tx = this.StateManager.CreateTransaction())
-                {
-                    var result = await myDictionary.TryGetValueAsync(tx, "Counter");
-
-                    ServiceEventSource.Current.ServiceMessage(this.Context, "Current Counter Value: {0}",
-                        result.HasValue ? result.Value.ToString() : "Value does not exist.");
-
-                    await myDictionary.AddOrUpdateAsync(tx, "Counter", 0, (key, value) => ++value);
-
-                    // If an exception is thrown before calling CommitAsync, the transaction aborts, all changes are 
-                    // discarded, and nothing is saved to the secondary replicas.
-                    await tx.CommitAsync();
-                }
-
-                await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
-            }
-        }
     }
 }
+

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\cloude5\\CloudMaster\\Validation\\Validation.csproj": {}
+    "D:\\CLOUDDD\\CloudMaster\\CloudMaster\\Validation\\Validation.csproj": {}
   },
   "projects": {
-    "D:\\cloude5\\CloudMaster\\Validation\\Validation.csproj": {
+    "D:\\CLOUDDD\\CloudMaster\\CloudMaster\\Validation\\Validation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\cloude5\\CloudMaster\\Validation\\Validation.csproj",
+        "projectUniqueName": "D:\\CLOUDDD\\CloudMaster\\CloudMaster\\Validation\\Validation.csproj",
         "projectName": "Validation",
-        "projectPath": "D:\\cloude5\\CloudMaster\\Validation\\Validation.csproj",
+        "projectPath": "D:\\CLOUDDD\\CloudMaster\\CloudMaster\\Validation\\Validation.csproj",
         "packagesPath": "C:\\Users\\Arsenije\\.nuget\\packages\\",
-        "outputPath": "D:\\cloude5\\CloudMaster\\Validation\\obj\\",
+        "outputPath": "D:\\CLOUDDD\\CloudMaster\\CloudMaster\\Validation\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -35,8 +35,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\cloude5\\Common\\Common.csproj": {
-                "projectPath": "D:\\cloude5\\Common\\Common.csproj"
+              "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj": {
+                "projectPath": "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj"
               }
             }
           }
@@ -104,11 +104,11 @@
         }
       }
     },
-    "D:\\cloude5\\Common\\Common.csproj": {
+    "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj": {
       "restore": {
-        "projectUniqueName": "D:\\cloude5\\Common\\Common.csproj",
+        "projectUniqueName": "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj",
         "projectName": "Common",
-        "projectPath": "D:\\cloude5\\Common\\Common.csproj",
+        "projectPath": "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj",
         "frameworks": {
           "net472": {
             "projectReferences": {}

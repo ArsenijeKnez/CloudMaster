@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\cloude5\\CloudMaster\\TransactionCoordinator\\TransactionCoordinator.csproj": {}
+    "D:\\CLOUDDD\\CloudMaster\\CloudMaster\\TransactionCoordinator\\TransactionCoordinator.csproj": {}
   },
   "projects": {
-    "D:\\cloude5\\CloudMaster\\TransactionCoordinator\\TransactionCoordinator.csproj": {
+    "D:\\CLOUDDD\\CloudMaster\\CloudMaster\\TransactionCoordinator\\TransactionCoordinator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\cloude5\\CloudMaster\\TransactionCoordinator\\TransactionCoordinator.csproj",
+        "projectUniqueName": "D:\\CLOUDDD\\CloudMaster\\CloudMaster\\TransactionCoordinator\\TransactionCoordinator.csproj",
         "projectName": "TransactionCoordinator",
-        "projectPath": "D:\\cloude5\\CloudMaster\\TransactionCoordinator\\TransactionCoordinator.csproj",
+        "projectPath": "D:\\CLOUDDD\\CloudMaster\\CloudMaster\\TransactionCoordinator\\TransactionCoordinator.csproj",
         "packagesPath": "C:\\Users\\Arsenije\\.nuget\\packages\\",
-        "outputPath": "D:\\cloude5\\CloudMaster\\TransactionCoordinator\\obj\\",
+        "outputPath": "D:\\CLOUDDD\\CloudMaster\\CloudMaster\\TransactionCoordinator\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -35,8 +35,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\cloude5\\Common\\Common.csproj": {
-                "projectPath": "D:\\cloude5\\Common\\Common.csproj"
+              "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj": {
+                "projectPath": "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj"
               }
             }
           }
@@ -104,11 +104,11 @@
         }
       }
     },
-    "D:\\cloude5\\Common\\Common.csproj": {
+    "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj": {
       "restore": {
-        "projectUniqueName": "D:\\cloude5\\Common\\Common.csproj",
+        "projectUniqueName": "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj",
         "projectName": "Common",
-        "projectPath": "D:\\cloude5\\Common\\Common.csproj",
+        "projectPath": "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj",
         "frameworks": {
           "net472": {
             "projectReferences": {}

@@ -292,6 +292,15 @@
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
         }
+      },
+      "Common/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Common.dll": {}
+        }
       }
     },
     "net8.0/win-x64": {
@@ -428,6 +437,15 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "Common/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Common.dll": {}
         }
       }
     }
@@ -907,10 +925,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Common/1.0.0": {
+      "type": "project",
+      "path": "../../Common/Common.csproj",
+      "msbuildProject": "../../Common/Common.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Common >= 1.0.0",
       "Microsoft.ServiceFabric.Services >= 7.1.2493",
       "Microsoft.ServiceFabric.Services.Remoting >= 7.1.2493"
     ]
@@ -949,7 +973,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj": {
+              "projectPath": "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

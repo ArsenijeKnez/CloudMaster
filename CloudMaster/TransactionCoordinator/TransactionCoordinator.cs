@@ -11,6 +11,7 @@ using Microsoft.ServiceFabric.Services.Remoting.Client;
 using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 using Common.Interfaces;
 using Common.Dto;
+using Microsoft.ServiceFabric.Services.Communication.Client;
 
 namespace TransactionCoordinator
 {
@@ -21,6 +22,9 @@ namespace TransactionCoordinator
     {
         private readonly string bookstorePath = @"fabric:/CloudMaster/BookstoreService";
         private readonly string bankPath = @"fabric:/CloudMaster/BankService";
+
+        //private readonly IBookstoreService bookstoreProxy2 = ServiceProxy.Create<IBookstoreService>(new Uri("fabric:/CloudMaster/BookstoreService"));
+       // private readonly IBankService bankProxy2 = ServiceProxy.Create<IBankService>(new Uri("fabric:/CloudMaster/BankService"));
 
         public TransactionCoordinator(StatelessServiceContext context)
             : base(context)
@@ -78,7 +82,7 @@ namespace TransactionCoordinator
             {
                 return await bankProxy.ListClients();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null!;
             }

@@ -9,12 +9,9 @@ using System.Threading.Tasks;
 
 namespace Common.Interfaces
 {
-    [ServiceContract]
-    public interface IBankService : IService, ITransaction
+    public interface IBankService : ITransaction
     {
-        [OperationContract]
         Task<List<ClientDTO>> ListClients();
-        [OperationContract]
         Task<bool> EnlistMoneyTransfer(int userSend, int userReceive, double amount);
     }
 }

@@ -34,7 +34,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj": {
+                "projectPath": "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -98,6 +102,21 @@
         "win-x64": {
           "#import": []
         }
+      }
+    },
+    "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj": {
+      "restore": {
+        "projectUniqueName": "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj",
+        "projectName": "Common",
+        "projectPath": "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj",
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net472": {}
       }
     }
   }

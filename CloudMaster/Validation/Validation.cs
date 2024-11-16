@@ -10,6 +10,7 @@ using Microsoft.ServiceFabric.Services.Remoting.Client;
 using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 using Common.Interfaces;
 using Common.Dto;
+using Microsoft.ServiceFabric.Services.Client;
 
 namespace Validation
 {
@@ -19,6 +20,7 @@ namespace Validation
 
     internal sealed class Validation : StatelessService, IValidation
     {
+        private readonly string transactionCoordinatorPath = @"fabric:/CloudMaster/TransactionCoordinator";
 
         public Validation(StatelessServiceContext context)
             : base(context)
@@ -28,82 +30,97 @@ namespace Validation
 
         public async Task<List<BookDTO>> ListAvailableItems()
         {
+            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
 
             try
             {
-                return null;
+                return await transactionCoordinatorProxy.ListAvailableItems();
             }
             catch (Exception e)
             {
+                Console.WriteLine($"Error in ListAvailableItems: {e.Message}");
                 return null!;
             }
         }
 
         public async Task<bool> EnlistPurchase(int bookId, int count)
         {
-            if (bookId < 0 || count < 0)
+            if (bookId <= 0 || count <= 0)
             {
+                Console.WriteLine("Invalid parameters: bookId and count must be greater than 0.");
                 return false;
             }
 
+            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
+
             try
             {
-                return true;
+                return await transactionCoordinatorProxy.EnlistPurchase(bookId, count);
             }
             catch (Exception e)
             {
+                Console.WriteLine($"Error in EnlistPurchase: {e.Message}");
                 return false;
             }
         }
 
         public async Task<double> GetItemPrice(int bookId)
         {
-            if (bookId < 0)
+            if (bookId <= 0)
             {
+                Console.WriteLine("Invalid parameter: bookId must be greater than 0.");
                 return -1;
             }
 
+            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
+
             try
             {
-                return 0;
+                return await transactionCoordinatorProxy.GetItemPrice(bookId);
             }
             catch (Exception e)
             {
+                Console.WriteLine($"Error in GetItemPrice: {e.Message}");
                 return -1;
             }
         }
 
         public async Task<List<ClientDTO>> ListClients()
         {
+            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
+
             try
             {
-                //return await bankProxy.ListClients();
-                return null;
-
+                return await transactionCoordinatorProxy.ListClients();
             }
             catch (Exception e)
             {
+                Console.WriteLine($"Error in ListClients: {e.Message}");
                 return null;
             }
         }
 
         public async Task<bool> EnlistMoneyTransfer(int userSend, int userReceive, double amount)
         {
-            if (userSend < 0 || userReceive < 0 || amount < 0)
+            if (userSend <= 0 || userReceive <= 0 || amount <= 0)
             {
+                Console.WriteLine("Invalid parameters: userSend, userReceive, and amount must be greater than 0.");
                 return false;
             }
 
+            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
 
             try
             {
-                return true;
+                return await transactionCoordinatorProxy.EnlistMoneyTransfer(userSend, userReceive, amount);
             }
             catch (Exception e)
             {
+                Console.WriteLine($"Error in EnlistMoneyTransfer: {e.Message}");
                 return false;
             }
         }
+
 
         #endregion
 

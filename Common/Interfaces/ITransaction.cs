@@ -5,17 +5,14 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using Common;
+using Microsoft.ServiceFabric.Services.Remoting;
 
 namespace Common.Interfaces
 {
-    [ServiceContract]
-    public interface ITransaction
+    public interface ITransaction: IService
     {
-        [OperationContract]
         Task<bool> Prepare();
-        [OperationContract]
         Task Commit();
-        [OperationContract]
         Task RollBack();
     }
 }

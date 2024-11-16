@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Fabric;
 using System.Threading;
@@ -9,6 +9,7 @@ using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Common.Interfaces;
 using Common.Dto;
+using System.Globalization;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 
 namespace BankService
@@ -19,6 +20,35 @@ namespace BankService
             : base(context) { }
 
         #region IBankImplementation
+
+        public async Task SeedClientsAsync()
+        {
+           var clientsDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, ClientDTO>>("clients");
+
+           using (var tx = StateManager.CreateTransaction())
+           {
+               var count = await clientsDict.GetCountAsync(tx);
+               if (count == 0)
+               {
+                   var sampleClients = new List<ClientDTO>
+               {
+                   new ClientDTO { Id = 1, Name = "Nikola Petrović", Email = "nikola.petrovic@gmail.com", Balance = 1000.00 },
+                   new ClientDTO { Id = 2, Name = "Jelena Marković", Email = "jelena.markovic@gmail.com", Balance = 750.50 },
+                   new ClientDTO { Id = 3, Name = "Milan Jovanović", Email = "milan.jovanovic@gmail.com", Balance = 1200.75 },
+                   new ClientDTO { Id = 4, Name = "Ana Nikolić", Email = "ana.nikolic@gmail.com", Balance = 500.00 },
+                   new ClientDTO { Id = 5, Name = "Vladimir Ilić", Email = "vladimir.ilic@gmail.com", Balance = 850.20 }
+               };
+
+                   foreach (var client in sampleClients)
+                   {
+                       await clientsDict.AddAsync(tx, client.Id, client);
+                   }
+
+                   await tx.CommitAsync();
+               }
+           }
+        }
+
 
         public async Task<List<ClientDTO>> ListClients()
         {
@@ -167,10 +197,18 @@ namespace BankService
 
         #endregion
 
-        protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
+        protected override async Task RunAsync(CancellationToken cancellationToken)
         {
-            return new ServiceReplicaListener[0];
+            await SeedClientsAsync();
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                ServiceEventSource.Current.ServiceMessage(this.Context, "BankService is running.");
+                await Task.Delay(TimeSpan.FromSeconds(10), cancellationToken);
+            }
         }
+
+
+        protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners() => this.CreateServiceRemotingReplicaListeners();
     }
 }
 

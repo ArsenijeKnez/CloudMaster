@@ -2,8 +2,6 @@
 using Microsoft.ServiceFabric.Services.Remoting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Common.Interfaces
@@ -19,5 +17,17 @@ namespace Common.Interfaces
         Task<List<ClientDTO>> ListClients();
 
         Task<bool> EnlistMoneyTransfer(int userSend, int userReceive, double amount);
+
+        Task<List<ITransactionDTO>> PrepareTransfers();
+
+        Task<List<ITransactionDTO>> CommitTransfers();
+
+        Task<bool> RollbackTransfers();
+
+        Task<List<ITransactionDTO>> PreparePurchases();
+
+        Task<List<ITransactionDTO>> CommitPurchases();
+
+        Task<bool> RollbackPurchases();
     }
 }

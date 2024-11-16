@@ -14,10 +14,6 @@ using Microsoft.ServiceFabric.Services.Client;
 
 namespace Validation
 {
-    /// <summary>
-    /// An instance of this class is created for each service instance by the Service Fabric runtime.
-    /// </summary>
-
     internal sealed class Validation : StatelessService, IValidation
     {
         private readonly string transactionCoordinatorPath = @"fabric:/CloudMaster/TransactionCoordinator";
@@ -121,6 +117,96 @@ namespace Validation
             }
         }
 
+        // Missing methods to match the TransactionCoordinator functionality
+        public async Task<List<ITransactionDTO>> PreparePurchases()
+        {
+            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
+
+            try
+            {
+                return await transactionCoordinatorProxy.PreparePurchases();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error in PreparePurchases: {e.Message}");
+                return new List<ITransactionDTO>();
+            }
+        }
+
+        public async Task<List<ITransactionDTO>> CommitPurchases()
+        {
+            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
+
+            try
+            {
+                return await transactionCoordinatorProxy.CommitPurchases();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error in CommitPurchases: {e.Message}");
+                return new List<ITransactionDTO>();
+            }
+        }
+
+        public async Task<List<ITransactionDTO>> PrepareTransfers()
+        {
+            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
+
+            try
+            {
+                return await transactionCoordinatorProxy.PrepareTransfers();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error in PrepareTransfers: {e.Message}");
+                return new List<ITransactionDTO>();
+            }
+        }
+
+        public async Task<List<ITransactionDTO>> CommitTransfers()
+        {
+            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
+
+            try
+            {
+                return await transactionCoordinatorProxy.CommitTransfers();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error in CommitTransfers: {e.Message}");
+                return new List<ITransactionDTO>();
+            }
+        }
+
+        public async Task<bool> RollbackPurchases()
+        {
+            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
+
+            try
+            {
+                return await transactionCoordinatorProxy.RollbackPurchases();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error in RollbackPurchases: {e.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> RollbackTransfers()
+        {
+            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
+
+            try
+            {
+                return await transactionCoordinatorProxy.RollbackTransfers();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error in RollbackTransfers: {e.Message}");
+                return false;
+            }
+        }
 
         #endregion
 

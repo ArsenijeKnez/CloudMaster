@@ -112,6 +112,7 @@
     <Compile Include="Interfaces\IBookstoreService.cs" />
     <Compile Include="Interfaces\ITransaction.cs" />
     <Compile Include="Interfaces\ITransactionCoordinator.cs" />
+    <Compile Include="Interfaces\ITransactionDTO.cs" />
     <Compile Include="Interfaces\IValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

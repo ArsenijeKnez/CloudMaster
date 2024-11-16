@@ -2,29 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Fabric;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.ServiceFabric.Services.Client;
-using Microsoft.ServiceFabric.Services.Communication.Runtime;
-using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
 using Microsoft.ServiceFabric.Services.Remoting.Runtime;
+using Microsoft.ServiceFabric.Services.Runtime;
 using Common.Interfaces;
 using Common.Dto;
-using Microsoft.ServiceFabric.Services.Communication.Client;
+using Microsoft.ServiceFabric.Services.Client;
+using Microsoft.ServiceFabric.Services.Communication.Runtime;
 
 namespace TransactionCoordinator
 {
-    /// <summary>
-    /// An instance of this class is created for each service instance by the Service Fabric runtime.
-    /// </summary>
     internal sealed class TransactionCoordinator : StatelessService, ITransactionCoordinator
     {
         private readonly string bookstorePath = @"fabric:/CloudMaster/BookstoreService";
         private readonly string bankPath = @"fabric:/CloudMaster/BankService";
-
-        //private readonly IBookstoreService bookstoreProxy2 = ServiceProxy.Create<IBookstoreService>(new Uri("fabric:/CloudMaster/BookstoreService"));
-       // private readonly IBankService bankProxy2 = ServiceProxy.Create<IBankService>(new Uri("fabric:/CloudMaster/BankService"));
 
         public TransactionCoordinator(StatelessServiceContext context)
             : base(context)
@@ -34,7 +26,7 @@ namespace TransactionCoordinator
 
         public async Task<List<BookDTO>> ListAvailableItems()
         {
-            IBookstoreService bookstoreProxy = ServiceProxy.Create<IBookstoreService>(new Uri(bookstorePath), new ServicePartitionKey(1));
+            var bookstoreProxy = ServiceProxy.Create<IBookstoreService>(new Uri(bookstorePath), new ServicePartitionKey(1));
 
             try
             {
@@ -48,7 +40,7 @@ namespace TransactionCoordinator
 
         public async Task<bool> EnlistPurchase(int bookId, int count)
         {
-            IBookstoreService bookstoreProxy = ServiceProxy.Create<IBookstoreService>(new Uri(bookstorePath), new ServicePartitionKey(1));
+            var bookstoreProxy = ServiceProxy.Create<IBookstoreService>(new Uri(bookstorePath), new ServicePartitionKey(1));
 
             try
             {
@@ -62,7 +54,7 @@ namespace TransactionCoordinator
 
         public async Task<double> GetItemPrice(int bookId)
         {
-            IBookstoreService bookstoreProxy = ServiceProxy.Create<IBookstoreService>(new Uri(bookstorePath), new ServicePartitionKey(1));
+            var bookstoreProxy = ServiceProxy.Create<IBookstoreService>(new Uri(bookstorePath), new ServicePartitionKey(1));
 
             try
             {
@@ -76,13 +68,13 @@ namespace TransactionCoordinator
 
         public async Task<List<ClientDTO>> ListClients()
         {
-            IBankService bankProxy = ServiceProxy.Create<IBankService>(new Uri(bankPath), new ServicePartitionKey(2));
+            var bankProxy = ServiceProxy.Create<IBankService>(new Uri(bankPath), new ServicePartitionKey(2));
 
             try
             {
                 return await bankProxy.ListClients();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null!;
             }
@@ -90,7 +82,7 @@ namespace TransactionCoordinator
 
         public async Task<bool> EnlistMoneyTransfer(int userSend, int userReceive, double amount)
         {
-            IBankService bankProxy = ServiceProxy.Create<IBankService>(new Uri(bankPath), new ServicePartitionKey(2));
+            var bankProxy = ServiceProxy.Create<IBankService>(new Uri(bankPath), new ServicePartitionKey(2));
 
             try
             {
@@ -101,6 +93,96 @@ namespace TransactionCoordinator
                 return false;
             }
         }
+
+        public async Task<List<ITransactionDTO>> PreparePurchases()
+        {
+            var bookstoreProxy = ServiceProxy.Create<IBookstoreService>(new Uri(bookstorePath), new ServicePartitionKey(1));
+
+            try
+            {
+                var purchases = await bookstoreProxy.Prepare();
+                return purchases.Cast<ITransactionDTO>().ToList(); 
+            }
+            catch (Exception)
+            {
+                return new List<ITransactionDTO>();
+            }
+        }
+
+        public async Task<List<ITransactionDTO>> CommitPurchases()
+        {
+            var bookstoreProxy = ServiceProxy.Create<IBookstoreService>(new Uri(bookstorePath), new ServicePartitionKey(1));
+
+            try
+            {
+                var purchases = await bookstoreProxy.Commit();
+                return purchases.Cast<ITransactionDTO>().ToList(); 
+            }
+            catch (Exception)
+            {
+                return new List<ITransactionDTO>();
+            }
+        }
+
+        public async Task<List<ITransactionDTO>> PrepareTransfers()
+        {
+            var bankProxy = ServiceProxy.Create<IBankService>(new Uri(bankPath), new ServicePartitionKey(2));
+
+            try
+            {
+                var transfers = await bankProxy.Prepare();
+                return transfers.Cast<ITransactionDTO>().ToList();  
+            }
+            catch (Exception)
+            {
+                return new List<ITransactionDTO>();
+            }
+        }
+
+        public async Task<List<ITransactionDTO>> CommitTransfers()
+        {
+            var bankProxy = ServiceProxy.Create<IBankService>(new Uri(bankPath), new ServicePartitionKey(2));
+
+            try
+            {
+                var transfers = await bankProxy.Commit();
+                return transfers.Cast<ITransactionDTO>().ToList(); 
+            }
+            catch (Exception)
+            {
+                return new List<ITransactionDTO>();
+            }
+        }
+        public async Task<bool> RollbackPurchases()
+        {
+            var bookstoreProxy = ServiceProxy.Create<IBookstoreService>(new Uri(bookstorePath), new ServicePartitionKey(1));
+
+            try
+            {
+                await bookstoreProxy.RollBack();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> RollbackTransfers()
+        {
+            var bankProxy = ServiceProxy.Create<IBankService>(new Uri(bankPath), new ServicePartitionKey(2));
+
+            try
+            {
+                await bankProxy.RollBack();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
 
         #endregion
 

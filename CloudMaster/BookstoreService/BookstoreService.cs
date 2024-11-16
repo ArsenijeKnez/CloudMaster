@@ -125,8 +125,9 @@ namespace BookstoreService
 
         #region ITransaction Implementation
 
-        public async Task<bool> Prepare()
+        public async Task<List<ITransactionDTO>> Prepare()
         {
+            var preparedPurchases = new List<ITransactionDTO>(); 
             var purchasesDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, PurchaseDTO>>("purchases");
 
             using (var tx = StateManager.CreateTransaction())
@@ -139,7 +140,7 @@ namespace BookstoreService
                         var purchase = asyncEnumerator.Current;
                         if (purchase.Value.Status == "Pending")
                         {
-                            return true; 
+                            preparedPurchases.Add((ITransactionDTO)purchase.Value);
                         }
                     }
                 }
@@ -147,12 +148,14 @@ namespace BookstoreService
                 await tx.CommitAsync();
             }
 
-            return false;
+            return preparedPurchases;
         }
 
-        public async Task Commit()
+
+
+        public async Task<List<ITransactionDTO>> Commit()
         {
-            var booksDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, BookDTO>>("books");
+            var committedPurchases = new List<ITransactionDTO>(); 
             var purchasesDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, PurchaseDTO>>("purchases");
 
             using (var tx = StateManager.CreateTransaction())
@@ -165,25 +168,22 @@ namespace BookstoreService
                         var purchase = asyncEnumerator.Current;
                         if (purchase.Value.Status == "Pending")
                         {
-                            var book = await booksDict.TryGetValueAsync(tx, purchase.Value.BookId);
-                            if (book.HasValue)
-                            {
-                                var updatedBook = book.Value;
-                                updatedBook.Stock -= purchase.Value.Count;
+                            var updatedPurchase = purchase.Value;
+                            updatedPurchase.Status = "Committed";
 
-                                await booksDict.AddOrUpdateAsync(tx, updatedBook.Id, updatedBook, (id, oldValue) => updatedBook);
-
-                                var updatedPurchase = purchase.Value;
-                                updatedPurchase.Status = "Committed";
-                                await purchasesDict.AddOrUpdateAsync(tx, updatedPurchase.Id, updatedPurchase, (id, oldValue) => updatedPurchase);
-                            }
+                            await purchasesDict.AddOrUpdateAsync(tx, updatedPurchase.Id, updatedPurchase, (id, oldValue) => updatedPurchase);
+                            committedPurchases.Add((ITransactionDTO)updatedPurchase);
                         }
                     }
                 }
 
                 await tx.CommitAsync();
             }
+
+            return committedPurchases;
         }
+
+
 
         public async Task RollBack()
         {

@@ -101,8 +101,9 @@ namespace BankService
 
         #region ITransaction
 
-        public async Task<bool> Prepare()
+        public async Task<List<ITransactionDTO>> Prepare()
         {
+            var preparedTransfers = new List<ITransactionDTO>(); 
             var transfersDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, TransferDTO>>("transfers");
 
             using (var tx = StateManager.CreateTransaction())
@@ -115,7 +116,7 @@ namespace BankService
                         var transfer = asyncEnumerator.Current;
                         if (transfer.Value.Status == "Pending")
                         {
-                            return true;
+                            preparedTransfers.Add((ITransactionDTO)transfer.Value);
                         }
                     }
                 }
@@ -123,13 +124,15 @@ namespace BankService
                 await tx.CommitAsync();
             }
 
-            return false;
+            return preparedTransfers;
         }
 
 
-        public async Task Commit()
+
+
+        public async Task<List<ITransactionDTO>> Commit()
         {
-            var clientsDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, ClientDTO>>("clients");
+            var committedTransfers = new List<ITransactionDTO>(); 
             var transfersDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, TransferDTO>>("transfers");
 
             using (var tx = StateManager.CreateTransaction())
@@ -142,31 +145,22 @@ namespace BankService
                         var transfer = asyncEnumerator.Current;
                         if (transfer.Value.Status == "Pending")
                         {
-                            var sender = await clientsDict.TryGetValueAsync(tx, transfer.Value.SenderId);
-                            var receiver = await clientsDict.TryGetValueAsync(tx, transfer.Value.ReceiverId);
+                            var updatedTransfer = transfer.Value;
+                            updatedTransfer.Status = "Committed";
 
-                            if (sender.HasValue && receiver.HasValue)
-                            {
-                                var senderUpdated = sender.Value;
-                                var receiverUpdated = receiver.Value;
-
-                                senderUpdated.Balance -= transfer.Value.Amount;
-                                receiverUpdated.Balance += transfer.Value.Amount;
-
-                                await clientsDict.AddOrUpdateAsync(tx, senderUpdated.Id, senderUpdated, (id, oldValue) => senderUpdated);
-                                await clientsDict.AddOrUpdateAsync(tx, receiverUpdated.Id, receiverUpdated, (id, oldValue) => receiverUpdated);
-
-                                var updatedTransfer = transfer.Value;
-                                updatedTransfer.Status = "Committed";
-                                await transfersDict.AddOrUpdateAsync(tx, updatedTransfer.Id, updatedTransfer, (id, oldValue) => updatedTransfer);
-                            }
+                            await transfersDict.AddOrUpdateAsync(tx, updatedTransfer.Id, updatedTransfer, (id, oldValue) => updatedTransfer);
+                            committedTransfers.Add((ITransactionDTO)updatedTransfer);
                         }
                     }
                 }
 
                 await tx.CommitAsync();
             }
+
+            return committedTransfers;
         }
+
+
 
         public async Task RollBack()
         {

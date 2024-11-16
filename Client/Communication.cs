@@ -12,6 +12,7 @@ namespace Client
     internal sealed class Communication
     {
         private readonly IValidation _validationServices = ServiceProxy.Create<IValidation>(new Uri("fabric:/CloudMaster/Validation"));
+
         public async Task<List<Book>> ListAvailableItemsAsync()
         {
             List<BookDTO> booksDTO = await _validationServices.ListAvailableItems();
@@ -21,7 +22,6 @@ namespace Client
             List<Book> books = new List<Book>();
             foreach (BookDTO bookDto in booksDTO)
             {
-
                 books.Add(DtoMapper.ConvertToBook(bookDto));
             }
 
@@ -48,7 +48,6 @@ namespace Client
             List<BankClient> clients = new List<BankClient>();
             foreach (ClientDTO clientDto in clientsDTO)
             {
-
                 clients.Add(DtoMapper.ConvertToClient(clientDto));
             }
 
@@ -60,5 +59,34 @@ namespace Client
             return await _validationServices.EnlistMoneyTransfer(userSend, userReceive, amount);
         }
 
+        public async Task<List<ITransactionDTO>> PreparePurchases()
+        {
+            return await _validationServices.PreparePurchases();
+        }
+
+        public async Task<List<ITransactionDTO>> CommitPurchases()
+        {
+            return await _validationServices.CommitPurchases();
+        }
+
+        public async Task<List<ITransactionDTO>> PrepareTransfers()
+        {
+            return await _validationServices.PrepareTransfers();
+        }
+
+        public async Task<List<ITransactionDTO>> CommitTransfers()
+        {
+            return await _validationServices.CommitTransfers();
+        }
+
+        public async Task<bool> RollbackPurchases()
+        {
+            return await _validationServices.RollbackPurchases();
+        }
+
+        public async Task<bool> RollbackTransfers()
+        {
+            return await _validationServices.RollbackTransfers();
+        }
     }
 }

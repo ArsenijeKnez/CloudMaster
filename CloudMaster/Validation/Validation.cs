@@ -117,8 +117,8 @@ namespace Validation
             }
         }
 
-        // Missing methods to match the TransactionCoordinator functionality
-        public async Task<List<ITransactionDTO>> PreparePurchases()
+
+        public async Task<List<PurchaseDTO>> PreparePurchases()
         {
             ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
 
@@ -129,11 +129,11 @@ namespace Validation
             catch (Exception e)
             {
                 Console.WriteLine($"Error in PreparePurchases: {e.Message}");
-                return new List<ITransactionDTO>();
+                return null!;
             }
         }
 
-        public async Task<List<ITransactionDTO>> CommitPurchases()
+        public async Task<List<PurchaseDTO>> CommitPurchases()
         {
             ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
 
@@ -144,11 +144,11 @@ namespace Validation
             catch (Exception e)
             {
                 Console.WriteLine($"Error in CommitPurchases: {e.Message}");
-                return new List<ITransactionDTO>();
+                return null!;
             }
         }
 
-        public async Task<List<ITransactionDTO>> PrepareTransfers()
+        public async Task<List<TransferDTO>> PrepareTransfers()
         {
             ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
 
@@ -159,11 +159,11 @@ namespace Validation
             catch (Exception e)
             {
                 Console.WriteLine($"Error in PrepareTransfers: {e.Message}");
-                return new List<ITransactionDTO>();
+                return null!;
             }
         }
 
-        public async Task<List<ITransactionDTO>> CommitTransfers()
+        public async Task<List<TransferDTO>> CommitTransfers()
         {
             ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
 
@@ -174,7 +174,7 @@ namespace Validation
             catch (Exception e)
             {
                 Console.WriteLine($"Error in CommitTransfers: {e.Message}");
-                return new List<ITransactionDTO>();
+                return null!;
             }
         }
 

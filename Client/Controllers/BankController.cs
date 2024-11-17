@@ -30,13 +30,6 @@ namespace Client.Controllers
         [HttpPost]
         public async Task<IActionResult> EnlistMoneyTransferAsync(int fromClientId, int toClientId, double amount)
         {
-            if (fromClientId == toClientId || amount <= 0)
-            {
-                ModelState.AddModelError("", "Invalid transfer");
-                ViewBag.Clients = _clients;
-                return View();
-            }
-
             bool done = await _communication.EnlistMoneyTransfer(fromClientId, toClientId, amount);
             if (!done)
             {
@@ -45,6 +38,27 @@ namespace Client.Controllers
                 return View();
             }
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> PrepareMoneyTransfers()
+        {
+            var transfers = await _communication.PrepareTransfers();
+            return View(transfers);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CommitMoneyTransfers()
+        {
+            var committedTransfers = await _communication.CommitTransfers();
+            return View("CommittedMoneyTransfers", committedTransfers);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RollbackMoneyTransfers()
+        {
+            var rollbackResult = await _communication.RollbackTransfers();
+            TempData["Message"] = rollbackResult ? "Rollback successful" : "Rollback failed";
+            return RedirectToAction("PrepareMoneyTransfers");
         }
     }
 }

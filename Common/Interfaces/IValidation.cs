@@ -20,13 +20,13 @@ namespace Common.Interfaces
 
         Task<bool> EnlistMoneyTransfer(int userSend, int userReceive, double amount);
 
-        Task<List<ITransactionDTO>> PreparePurchases();
+        Task<List<PurchaseDTO>> PreparePurchases();
 
-        Task<List<ITransactionDTO>> CommitPurchases();
+        Task<List<PurchaseDTO>> CommitPurchases();
 
-        Task<List<ITransactionDTO>> PrepareTransfers();
+        Task<List<TransferDTO>> PrepareTransfers();
 
-        Task<List<ITransactionDTO>> CommitTransfers();
+        Task<List<TransferDTO>> CommitTransfers();
 
         Task<bool> RollbackPurchases();
 

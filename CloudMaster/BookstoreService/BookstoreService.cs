@@ -125,9 +125,9 @@ namespace BookstoreService
 
         #region ITransaction Implementation
 
-        public async Task<List<ITransactionDTO>> Prepare()
+        public async Task<List<PurchaseDTO>> Prepare()
         {
-            var preparedPurchases = new List<ITransactionDTO>(); 
+            var preparedPurchases = new List<PurchaseDTO>();
             var purchasesDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, PurchaseDTO>>("purchases");
 
             using (var tx = StateManager.CreateTransaction())
@@ -138,9 +138,14 @@ namespace BookstoreService
                     while (await asyncEnumerator.MoveNextAsync(CancellationToken.None))
                     {
                         var purchase = asyncEnumerator.Current;
+
                         if (purchase.Value.Status == "Pending")
                         {
-                            preparedPurchases.Add((ITransactionDTO)purchase.Value);
+                            if (purchase.Value is PurchaseDTO transactionDTO)
+                            {
+                                preparedPurchases.Add(transactionDTO);
+                            }
+
                         }
                     }
                 }
@@ -153,13 +158,27 @@ namespace BookstoreService
 
 
 
-        public async Task<List<ITransactionDTO>> Commit()
+
+        public async Task<List<PurchaseDTO>> Commit()
         {
-            var committedPurchases = new List<ITransactionDTO>(); 
+            var allPurchases = new List<PurchaseDTO>();
             var purchasesDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, PurchaseDTO>>("purchases");
 
             using (var tx = StateManager.CreateTransaction())
             {
+                var committedPurchases = await purchasesDict.CreateEnumerableAsync(tx);
+                using (var asyncEnumerator = committedPurchases.GetAsyncEnumerator())
+                {
+                    while (await asyncEnumerator.MoveNextAsync(CancellationToken.None))
+                    {
+                        var purchase = asyncEnumerator.Current;
+                        if (purchase.Value.Status == "Committed")
+                        {
+                            allPurchases.Add(purchase.Value);
+                        }
+                    }
+                }
+
                 var pendingPurchases = await purchasesDict.CreateEnumerableAsync(tx);
                 using (var asyncEnumerator = pendingPurchases.GetAsyncEnumerator())
                 {
@@ -169,10 +188,11 @@ namespace BookstoreService
                         if (purchase.Value.Status == "Pending")
                         {
                             var updatedPurchase = purchase.Value;
-                            updatedPurchase.Status = "Committed";
+                            updatedPurchase.Status = "Committed"; 
 
                             await purchasesDict.AddOrUpdateAsync(tx, updatedPurchase.Id, updatedPurchase, (id, oldValue) => updatedPurchase);
-                            committedPurchases.Add((ITransactionDTO)updatedPurchase);
+
+                            allPurchases.Add(updatedPurchase);
                         }
                     }
                 }
@@ -180,8 +200,9 @@ namespace BookstoreService
                 await tx.CommitAsync();
             }
 
-            return committedPurchases;
+            return allPurchases;
         }
+
 
 
 

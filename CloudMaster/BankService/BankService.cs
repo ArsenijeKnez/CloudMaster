@@ -101,9 +101,9 @@ namespace BankService
 
         #region ITransaction
 
-        public async Task<List<ITransactionDTO>> Prepare()
+        public async Task<List<TransferDTO>> Prepare()
         {
-            var preparedTransfers = new List<ITransactionDTO>(); 
+            var preparedTransfers = new List<TransferDTO>(); 
             var transfersDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, TransferDTO>>("transfers");
 
             using (var tx = StateManager.CreateTransaction())
@@ -116,7 +116,7 @@ namespace BankService
                         var transfer = asyncEnumerator.Current;
                         if (transfer.Value.Status == "Pending")
                         {
-                            preparedTransfers.Add((ITransactionDTO)transfer.Value);
+                            preparedTransfers.Add((TransferDTO)transfer.Value);
                         }
                     }
                 }
@@ -130,13 +130,26 @@ namespace BankService
 
 
 
-        public async Task<List<ITransactionDTO>> Commit()
+        public async Task<List<TransferDTO>> Commit()
         {
-            var committedTransfers = new List<ITransactionDTO>(); 
+            var allTransfers = new List<TransferDTO>();
             var transfersDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, TransferDTO>>("transfers");
 
             using (var tx = StateManager.CreateTransaction())
             {
+                var committedTransfers = await transfersDict.CreateEnumerableAsync(tx);
+                using (var asyncEnumerator = committedTransfers.GetAsyncEnumerator())
+                {
+                    while (await asyncEnumerator.MoveNextAsync(CancellationToken.None))
+                    {
+                        var transfer = asyncEnumerator.Current;
+                        if (transfer.Value.Status == "Committed")
+                        {
+                            allTransfers.Add(transfer.Value);
+                        }
+                    }
+                }
+
                 var pendingTransfers = await transfersDict.CreateEnumerableAsync(tx);
                 using (var asyncEnumerator = pendingTransfers.GetAsyncEnumerator())
                 {
@@ -149,7 +162,8 @@ namespace BankService
                             updatedTransfer.Status = "Committed";
 
                             await transfersDict.AddOrUpdateAsync(tx, updatedTransfer.Id, updatedTransfer, (id, oldValue) => updatedTransfer);
-                            committedTransfers.Add((ITransactionDTO)updatedTransfer);
+
+                            allTransfers.Add(updatedTransfer);
                         }
                     }
                 }
@@ -157,8 +171,9 @@ namespace BankService
                 await tx.CommitAsync();
             }
 
-            return committedTransfers;
+            return allTransfers;
         }
+
 
 
 

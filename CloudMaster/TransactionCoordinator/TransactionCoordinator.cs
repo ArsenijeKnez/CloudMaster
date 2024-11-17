@@ -94,63 +94,63 @@ namespace TransactionCoordinator
             }
         }
 
-        public async Task<List<ITransactionDTO>> PreparePurchases()
+        public async Task<List<PurchaseDTO>> PreparePurchases()
         {
             var bookstoreProxy = ServiceProxy.Create<IBookstoreService>(new Uri(bookstorePath), new ServicePartitionKey(1));
 
             try
             {
                 var purchases = await bookstoreProxy.Prepare();
-                return purchases.Cast<ITransactionDTO>().ToList(); 
+                return purchases.ToList(); 
             }
             catch (Exception)
             {
-                return new List<ITransactionDTO>();
+                return null!;
             }
         }
 
-        public async Task<List<ITransactionDTO>> CommitPurchases()
+        public async Task<List<PurchaseDTO>> CommitPurchases()
         {
             var bookstoreProxy = ServiceProxy.Create<IBookstoreService>(new Uri(bookstorePath), new ServicePartitionKey(1));
 
             try
             {
                 var purchases = await bookstoreProxy.Commit();
-                return purchases.Cast<ITransactionDTO>().ToList(); 
+                return purchases.ToList(); 
             }
             catch (Exception)
             {
-                return new List<ITransactionDTO>();
+                return null!;
             }
         }
 
-        public async Task<List<ITransactionDTO>> PrepareTransfers()
+        public async Task<List<TransferDTO>> PrepareTransfers()
         {
             var bankProxy = ServiceProxy.Create<IBankService>(new Uri(bankPath), new ServicePartitionKey(2));
 
             try
             {
                 var transfers = await bankProxy.Prepare();
-                return transfers.Cast<ITransactionDTO>().ToList();  
+                return transfers.ToList();  
             }
             catch (Exception)
             {
-                return new List<ITransactionDTO>();
+                return null!;
             }
         }
 
-        public async Task<List<ITransactionDTO>> CommitTransfers()
+        public async Task<List<TransferDTO>> CommitTransfers()
         {
             var bankProxy = ServiceProxy.Create<IBankService>(new Uri(bankPath), new ServicePartitionKey(2));
 
             try
             {
                 var transfers = await bankProxy.Commit();
-                return transfers.Cast<ITransactionDTO>().ToList(); 
+                return transfers.ToList(); 
             }
             catch (Exception)
             {
-                return new List<ITransactionDTO>();
+                return null!;
             }
         }
         public async Task<bool> RollbackPurchases()

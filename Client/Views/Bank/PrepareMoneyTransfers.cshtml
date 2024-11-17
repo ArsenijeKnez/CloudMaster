@@ -1,0 +1,48 @@
+﻿@model List<Client.Models.MoneyTransfer>
+@{
+    ViewData["Title"] = "Prepared Money Transfers";
+}
+
+<h2>Prepared Money Transfers</h2>
+
+@if (TempData["Message"] != null)
+{
+    <p>@TempData["Message"]</p>
+}
+
+@if (Model == null || !Model.Any())
+{
+    <p>No prepared money transfers are available.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>From Client ID</th>
+                <th>To Client ID</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transfer in Model)
+            {
+                <tr>
+                    <td>@transfer.Id</td>
+                    <td>@transfer.FromClientId</td>
+                    <td>@transfer.ToClientId</td>
+                    <td>@transfer.Amount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <form asp-action="CommitMoneyTransfers" method="post">
+        <button type="submit">Commit</button>
+    </form>
+
+    <form asp-action="RollbackMoneyTransfers" method="post">
+        <button type="submit">Rollback</button>
+    </form>
+}

@@ -1,5 +1,6 @@
 ﻿using Client.Models;
 using Common.Dto;
+using System;
 
 namespace Client.Mapper
 {
@@ -23,6 +24,28 @@ namespace Client.Mapper
                 Id = clientDTO.Id,
                 Name = clientDTO.Name,
                 Email = clientDTO.Email
+            };
+        }
+
+        public static MoneyTransfer ConvertToMoneyTransfer(TransferDTO transferDTO)
+        {
+            return new MoneyTransfer
+            {
+                Id = transferDTO.Id,
+                FromClientId = transferDTO.SenderId,
+                ToClientId = transferDTO.ReceiverId,
+                Amount = transferDTO.Amount
+            };
+        }
+
+        public static Purchase ConvertToPurchase(PurchaseDTO purchaseDTO)
+        {;
+
+            return new Purchase
+            {
+                Id = purchaseDTO.Id,
+                BookId = purchaseDTO.BookId,
+                Quantity = purchaseDTO.Count
             };
         }
     }

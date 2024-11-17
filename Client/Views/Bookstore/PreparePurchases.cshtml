@@ -1,0 +1,48 @@
+﻿@model List<Client.Models.Purchase>
+@{
+    ViewData["Title"] = "Prepared Purchases";
+}
+
+<h2>Prepared Purchases</h2>
+
+@if (TempData["Message"] != null)
+{
+    <p>@TempData["Message"]</p>
+}
+
+@if (Model == null || !Model.Any())
+{
+    <p>No prepared purchases are available.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Book ID</th>
+                <th>Quantity</th>
+                <th>Purchase Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var purchase in Model)
+            {
+                <tr>
+                    <td>@purchase.Id</td>
+                    <td>@purchase.BookId</td>
+                    <td>@purchase.Quantity</td>
+                    <td>@purchase.PurchaseDate.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <form asp-action="CommitPurchases" method="post">
+        <button type="submit">Commit</button>
+    </form>
+
+    <form asp-action="RollbackPurchases" method="post">
+        <button type="submit">Rollback</button>
+    </form>
+}

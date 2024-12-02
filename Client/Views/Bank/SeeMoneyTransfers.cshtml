@@ -3,7 +3,7 @@
     ViewData["Title"] = "Prepared Money Transfers";
 }
 
-<h2>Prepared Money Transfers</h2>
+<h2>Commited Money Transfers</h2>
 
 @if (TempData["Message"] != null)
 {
@@ -12,7 +12,7 @@
 
 @if (Model == null || !Model.Any())
 {
-    <p>No prepared money transfers are available.</p>
+    <p>No money transfers are available.</p>
 }
 else
 {
@@ -20,9 +20,10 @@ else
         <thead>
             <tr>
                 <th>ID</th>
-                <th>From Client ID</th>
-                <th>To Client ID</th>
-                <th>Amount</th>
+                <th>Client ID</th>
+                <th>Book ID</th>
+                <th>Quantity</th>
+                <th>Amount of money</th>
             </tr>
         </thead>
         <tbody>
@@ -30,19 +31,13 @@ else
             {
                 <tr>
                     <td>@transfer.Id</td>
-                    <td>@transfer.FromClientId</td>
-                    <td>@transfer.ToClientId</td>
+                    <td>@transfer.ClientId</td>
+                    <td>@transfer.BookId</td>
+                    <td>@transfer.Quantity</td>
                     <td>@transfer.Amount</td>
                 </tr>
             }
         </tbody>
     </table>
 
-    <form asp-action="CommitMoneyTransfers" method="post">
-        <button type="submit">Commit</button>
-    </form>
-
-    <form asp-action="RollbackMoneyTransfers" method="post">
-        <button type="submit">Rollback</button>
-    </form>
 }

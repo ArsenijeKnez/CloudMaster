@@ -10,10 +10,10 @@ using Microsoft.ServiceFabric.Services.Remoting;
 
 namespace Common.Interfaces
 {
-    public interface ITransaction<T>: IService
+    public interface ITransaction: IService
     {
-        Task<List<T>> Prepare();
-        Task<List<T>> Commit();
-        Task RollBack();
+        Task<bool> Prepare(int id, int cientID, int bookId, int quantity, double price);
+        Task<bool> Commit(int id);
+        Task<bool> RollBack(int id);
     }
 }

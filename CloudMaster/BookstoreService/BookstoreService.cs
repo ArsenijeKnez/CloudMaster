@@ -70,41 +70,6 @@ namespace BookstoreService
             return books;
         }
 
-        public async Task<bool> EnlistPurchase(int bookId, int count)
-        {
-            var purchasesDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, PurchaseDTO>>("purchases");
-
-            using (var tx = StateManager.CreateTransaction())
-            {
-                var book = await StateManager.GetOrAddAsync<IReliableDictionary<int, BookDTO>>("books");
-                var bookEntry = await book.TryGetValueAsync(tx, bookId);
-
-                if (!bookEntry.HasValue || bookEntry.Value.Stock < count)
-                {
-                    return false; 
-                }
-
-                int purchaseId = (int)DateTime.UtcNow.Ticks;
-                var purchase = new PurchaseDTO
-                {
-                    Id = purchaseId,
-                    BookId = bookId,
-                    Count = count,
-                    Status = "Pending"
-                };
-
-                await purchasesDict.AddOrUpdateAsync(tx, purchaseId, purchase, (id, oldValue) => purchase);
-
-                var updatedBook = bookEntry.Value;
-                updatedBook.Stock -= count;
-
-                await book.AddOrUpdateAsync(tx, updatedBook.Id, updatedBook, (id, oldValue) => updatedBook);
-
-                await tx.CommitAsync();
-            }
-
-            return true;
-        }
 
         public async Task<double> GetItemPrice(int bookId)
         {
@@ -121,45 +86,7 @@ namespace BookstoreService
             }
         }
 
-        #endregion
-
-        #region ITransaction Implementation
-
-        public async Task<List<PurchaseDTO>> Prepare()
-        {
-            var preparedPurchases = new List<PurchaseDTO>();
-            var purchasesDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, PurchaseDTO>>("purchases");
-
-            using (var tx = StateManager.CreateTransaction())
-            {
-                var pendingPurchases = await purchasesDict.CreateEnumerableAsync(tx);
-                using (var asyncEnumerator = pendingPurchases.GetAsyncEnumerator())
-                {
-                    while (await asyncEnumerator.MoveNextAsync(CancellationToken.None))
-                    {
-                        var purchase = asyncEnumerator.Current;
-
-                        if (purchase.Value.Status == "Pending")
-                        {
-                            if (purchase.Value is PurchaseDTO transactionDTO)
-                            {
-                                preparedPurchases.Add(transactionDTO);
-                            }
-
-                        }
-                    }
-                }
-
-                await tx.CommitAsync();
-            }
-
-            return preparedPurchases;
-        }
-
-
-
-
-        public async Task<List<PurchaseDTO>> Commit()
+        public async Task<List<PurchaseDTO>> GetPurchases()
         {
             var allPurchases = new List<PurchaseDTO>();
             var purchasesDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, PurchaseDTO>>("purchases");
@@ -178,58 +105,134 @@ namespace BookstoreService
                         }
                     }
                 }
-
-                var pendingPurchases = await purchasesDict.CreateEnumerableAsync(tx);
-                using (var asyncEnumerator = pendingPurchases.GetAsyncEnumerator())
-                {
-                    while (await asyncEnumerator.MoveNextAsync(CancellationToken.None))
-                    {
-                        var purchase = asyncEnumerator.Current;
-                        if (purchase.Value.Status == "Pending")
-                        {
-                            var updatedPurchase = purchase.Value;
-                            updatedPurchase.Status = "Committed"; 
-
-                            await purchasesDict.AddOrUpdateAsync(tx, updatedPurchase.Id, updatedPurchase, (id, oldValue) => updatedPurchase);
-
-                            allPurchases.Add(updatedPurchase);
-                        }
-                    }
-                }
-
-                await tx.CommitAsync();
             }
-
             return allPurchases;
         }
 
+        #endregion
 
+        #region ITransaction Implementation
 
-
-        public async Task RollBack()
+        public async Task<bool> Prepare(int purchaseId, int clientId, int bookId, int quantity, double price)
         {
             var purchasesDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, PurchaseDTO>>("purchases");
 
             using (var tx = StateManager.CreateTransaction())
             {
-                var pendingPurchases = await purchasesDict.CreateEnumerableAsync(tx);
-                using (var asyncEnumerator = pendingPurchases.GetAsyncEnumerator())
-                {
-                    while (await asyncEnumerator.MoveNextAsync(CancellationToken.None))
-                    {
-                        var purchase = asyncEnumerator.Current;
-                        if (purchase.Value.Status == "Pending")
-                        {
-                            var rolledBackPurchase = purchase.Value;
-                            rolledBackPurchase.Status = "RolledBack";
+                var book = await StateManager.GetOrAddAsync<IReliableDictionary<int, BookDTO>>("books");
+                var bookEntry = await book.TryGetValueAsync(tx, bookId);
 
-                            await purchasesDict.AddOrUpdateAsync(tx, rolledBackPurchase.Id, rolledBackPurchase, (id, oldValue) => rolledBackPurchase);
-                        }
-                    }
+                if (!bookEntry.HasValue || bookEntry.Value.Stock < quantity)
+                {
+                    return false;
                 }
+                var purchase = new PurchaseDTO
+                {
+                    Id = purchaseId,
+                    BookId = bookId,
+                    Count = quantity,
+                    Status = "Pending"
+                };
+
+                await purchasesDict.AddOrUpdateAsync(tx, purchaseId, purchase, (id, oldValue) => purchase);
+
 
                 await tx.CommitAsync();
             }
+
+            return true;
+        }
+
+
+
+
+        public async Task<bool> Commit(int id)
+        {
+            var purchasesDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, PurchaseDTO>>("purchases");
+
+            int Quant = 0;
+            int BookId = 0;
+
+            using (var tx = StateManager.CreateTransaction())
+            {
+                var purchase = await purchasesDict.TryGetValueAsync(tx, id);
+
+                if (purchase.HasValue)
+                {
+                    PurchaseDTO updatedPurchase = purchase.Value;
+
+                    updatedPurchase.Status = "Committed";
+                    Quant = updatedPurchase.Count;
+                    BookId = updatedPurchase.BookId;
+
+                    await purchasesDict.AddOrUpdateAsync(tx, id, updatedPurchase, (id, oldValue) => updatedPurchase);
+                }
+                await tx.CommitAsync();
+            }
+
+            using (var tx = StateManager.CreateTransaction())
+            {
+                var book = await StateManager.GetOrAddAsync<IReliableDictionary<int, BookDTO>>("books");
+                var bookEntry = await book.TryGetValueAsync(tx, BookId);
+
+                if (!bookEntry.HasValue || bookEntry.Value.Stock < Quant)
+                {
+                    return false;
+                }
+
+                var updatedBook = bookEntry.Value;
+                updatedBook.Stock -= Quant;
+
+                await book.AddOrUpdateAsync(tx, updatedBook.Id, updatedBook, (id, oldValue) => updatedBook);
+
+                await tx.CommitAsync();
+            }
+
+            return true;
+        }
+
+
+
+
+        public async Task<bool> RollBack(int id)
+        {
+            var purchasesDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, PurchaseDTO>>("purchases");
+
+            int Quant = 0;
+            int BookId = 0;
+
+            using (var tx = StateManager.CreateTransaction())
+            {
+                var purchase = await purchasesDict.TryGetValueAsync(tx, id);
+
+                if (purchase.HasValue)
+                {
+                    PurchaseDTO updatedPurchase = purchase.Value;
+
+                    updatedPurchase.Status = "Rolledback";
+                    Quant = updatedPurchase.Count;
+                    BookId = updatedPurchase.BookId;
+
+                    await purchasesDict.AddOrUpdateAsync(tx, id, updatedPurchase, (id, oldValue) => updatedPurchase);
+                }
+                await tx.CommitAsync();
+            }
+
+            using (var tx = StateManager.CreateTransaction())
+            {
+                var book = await StateManager.GetOrAddAsync<IReliableDictionary<int, BookDTO>>("books");
+                var bookEntry = await book.TryGetValueAsync(tx, BookId);
+
+                var updatedBook = bookEntry.Value;
+                updatedBook.Stock += Quant;
+
+                await book.AddOrUpdateAsync(tx, updatedBook.Id, updatedBook, (id, oldValue) => updatedBook);
+
+                await tx.CommitAsync();
+            }
+
+            return true;
+
         }
 
         #endregion
@@ -249,7 +252,6 @@ namespace BookstoreService
                 await Task.Delay(TimeSpan.FromSeconds(10), cancellationToken);
             }
         }
-
     }
 }
 

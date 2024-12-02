@@ -19,46 +19,10 @@ namespace Client.Controllers
         private static List<BankClient> _clients = new List<BankClient>();
         private static List<MoneyTransfer> _transfers = new List<MoneyTransfer>();
 
-
-        [HttpGet]
-        public IActionResult EnlistMoneyTransfer()
+        public async Task<IActionResult> SeeMoneyTransfers()
         {
-            ViewBag.Clients = _clients;
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> EnlistMoneyTransferAsync(int fromClientId, int toClientId, double amount)
-        {
-            bool done = await _communication.EnlistMoneyTransfer(fromClientId, toClientId, amount);
-            if (!done)
-            {
-                ModelState.AddModelError("", "Invalid transfer");
-                ViewBag.Clients = _clients;
-                return View();
-            }
-            return RedirectToAction("Index");
-        }
-
-        public async Task<IActionResult> PrepareMoneyTransfers()
-        {
-            var transfers = await _communication.PrepareTransfers();
+            var transfers = await _communication.GetCommitedTransfers();
             return View(transfers);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CommitMoneyTransfers()
-        {
-            var committedTransfers = await _communication.CommitTransfers();
-            return View("CommittedMoneyTransfers", committedTransfers);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> RollbackMoneyTransfers()
-        {
-            var rollbackResult = await _communication.RollbackTransfers();
-            TempData["Message"] = rollbackResult ? "Rollback successful" : "Rollback failed";
-            return RedirectToAction("PrepareMoneyTransfers");
         }
     }
 }

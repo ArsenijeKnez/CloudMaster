@@ -10,24 +10,13 @@ namespace Common.Interfaces
     {
         Task<List<BookDTO>> ListAvailableItems();
 
-        Task<bool> EnlistPurchase(int bookId, int count);
-
-        Task<double> GetItemPrice(int bookId);
+        Task<bool> EnlistPurchase(int cientID, int bookId, int quantity);
 
         Task<List<ClientDTO>> ListClients();
 
-        Task<bool> EnlistMoneyTransfer(int userSend, int userReceive, double amount);
+        Task<List<TransferDTO>> GetTransfers();
 
-        Task<List<TransferDTO>> PrepareTransfers();
+        Task<List<PurchaseDTO>> GetPurchases();
 
-        Task<List<TransferDTO>> CommitTransfers();
-
-        Task<bool> RollbackTransfers();
-
-        Task<List<PurchaseDTO>> PreparePurchases();
-
-        Task<List<PurchaseDTO>> CommitPurchases();
-
-        Task<bool> RollbackPurchases();
     }
 }

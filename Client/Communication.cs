@@ -28,15 +28,10 @@ namespace Client
             return books;
         }
 
-        public async Task<bool> EnlistPurchase(int bookId, int count)
+        public async Task<bool> EnlistPurchase(int clientId, int bookId, int count)
         {
-            bool result = await _validationServices.EnlistPurchase(bookId, count);
+            bool result = await _validationServices.EnlistPurchase(clientId, bookId, count);
             return result;
-        }
-
-        public async Task<double> GetItemPrice(int bookId)
-        {
-            return await _validationServices.GetItemPrice(bookId);
         }
 
         public async Task<List<BankClient>> ListClients()
@@ -54,14 +49,10 @@ namespace Client
             return clients;
         }
 
-        public async Task<bool> EnlistMoneyTransfer(int userSend, int userReceive, double amount)
-        {
-            return await _validationServices.EnlistMoneyTransfer(userSend, userReceive, amount);
-        }
 
-        public async Task<List<Purchase>> PreparePurchases()
+        public async Task<List<Purchase>> SeeComittedPurchases()
         {
-            List<PurchaseDTO> purchasesDTO =  await _validationServices.PreparePurchases();
+            List<PurchaseDTO> purchasesDTO =  await _validationServices.SeePurchases();
 
             if (purchasesDTO == null)
                 return null;
@@ -75,25 +66,10 @@ namespace Client
             return purchases;
         }
 
-        public async Task<List<Purchase>> CommitPurchases()
+
+        public async Task<List<MoneyTransfer>> GetCommitedTransfers()
         {
-            List<PurchaseDTO> purchasesDTO = await _validationServices.CommitPurchases();
-
-            if (purchasesDTO == null)
-                return null;
-
-            List<Purchase> purchases = new List<Purchase>();
-            foreach (PurchaseDTO purchaseDto in purchasesDTO)
-            {
-                purchases.Add(DtoMapper.ConvertToPurchase(purchaseDto));
-            }
-
-            return purchases;
-        }
-
-        public async Task<List<MoneyTransfer>> PrepareTransfers()
-        {
-            List<TransferDTO> transfersDTO = await _validationServices.PrepareTransfers();
+            List<TransferDTO> transfersDTO = await _validationServices.SeeTransfers();
 
             if (transfersDTO == null)
                 return null;
@@ -107,30 +83,5 @@ namespace Client
             return transfers;
         }
 
-        public async Task<List<MoneyTransfer>> CommitTransfers()
-        {
-            List<TransferDTO> transfersDTO = await _validationServices.CommitTransfers();
-
-            if (transfersDTO == null)
-                return null;
-
-            List<MoneyTransfer> transfers = new List<MoneyTransfer>();
-            foreach (TransferDTO transferDto in transfersDTO)
-            {
-                transfers.Add(DtoMapper.ConvertToMoneyTransfer(transferDto));
-            }
-
-            return transfers;
-        }
-
-        public async Task<bool> RollbackPurchases()
-        {
-            return await _validationServices.RollbackPurchases();
-        }
-
-        public async Task<bool> RollbackTransfers()
-        {
-            return await _validationServices.RollbackTransfers();
-        }
     }
 }

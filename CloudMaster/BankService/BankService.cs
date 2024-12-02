@@ -11,6 +11,8 @@ using Common.Interfaces;
 using Common.Dto;
 using System.Globalization;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
+using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace BankService
 {
@@ -18,8 +20,6 @@ namespace BankService
     {
         public BankService(StatefulServiceContext context)
             : base(context) { }
-
-        #region IBankImplementation
 
         public async Task SeedClientsAsync()
         {
@@ -49,6 +49,7 @@ namespace BankService
            }
         }
 
+        #region IBankImplementation
 
         public async Task<List<ClientDTO>> ListClients()
         {
@@ -73,64 +74,7 @@ namespace BankService
             return clients;
         }
 
-
-        public async Task<bool> EnlistMoneyTransfer(int userSend, int userReceive, double amount)
-        {
-            var transfersDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, TransferDTO>>("transfers");
-
-            using (var tx = StateManager.CreateTransaction())
-            {
-                int transferId = (int)DateTime.UtcNow.Ticks; 
-                var transfer = new TransferDTO
-                {
-                    Id = transferId,
-                    SenderId = userSend,
-                    ReceiverId = userReceive,
-                    Amount = amount,
-                    Status = "Pending"
-                };
-
-                await transfersDict.AddOrUpdateAsync(tx, transferId, transfer, (id, oldValue) => transfer);
-                await tx.CommitAsync();
-            }
-
-            return true;
-        }
-
-        #endregion
-
-        #region ITransaction
-
-        public async Task<List<TransferDTO>> Prepare()
-        {
-            var preparedTransfers = new List<TransferDTO>(); 
-            var transfersDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, TransferDTO>>("transfers");
-
-            using (var tx = StateManager.CreateTransaction())
-            {
-                var pendingTransfers = await transfersDict.CreateEnumerableAsync(tx);
-                using (var asyncEnumerator = pendingTransfers.GetAsyncEnumerator())
-                {
-                    while (await asyncEnumerator.MoveNextAsync(CancellationToken.None))
-                    {
-                        var transfer = asyncEnumerator.Current;
-                        if (transfer.Value.Status == "Pending")
-                        {
-                            preparedTransfers.Add((TransferDTO)transfer.Value);
-                        }
-                    }
-                }
-
-                await tx.CommitAsync();
-            }
-
-            return preparedTransfers;
-        }
-
-
-
-
-        public async Task<List<TransferDTO>> Commit()
+        public async Task<List<TransferDTO>> GetTransfers()
         {
             var allTransfers = new List<TransferDTO>();
             var transfersDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, TransferDTO>>("transfers");
@@ -149,58 +93,144 @@ namespace BankService
                         }
                     }
                 }
-
-                var pendingTransfers = await transfersDict.CreateEnumerableAsync(tx);
-                using (var asyncEnumerator = pendingTransfers.GetAsyncEnumerator())
-                {
-                    while (await asyncEnumerator.MoveNextAsync(CancellationToken.None))
-                    {
-                        var transfer = asyncEnumerator.Current;
-                        if (transfer.Value.Status == "Pending")
-                        {
-                            var updatedTransfer = transfer.Value;
-                            updatedTransfer.Status = "Committed";
-
-                            await transfersDict.AddOrUpdateAsync(tx, updatedTransfer.Id, updatedTransfer, (id, oldValue) => updatedTransfer);
-
-                            allTransfers.Add(updatedTransfer);
-                        }
-                    }
-                }
-
-                await tx.CommitAsync();
             }
-
             return allTransfers;
         }
 
+        #endregion
 
+        #region ITransaction
 
-
-        public async Task RollBack()
+        public async Task<bool> Prepare(int transferId, int clientId, int bookId, int quantity, double price)
         {
+            var clientsDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, ClientDTO>>("clients");
+
+            double FullPrice = price * quantity;
+
+            using (var tx = StateManager.CreateTransaction())
+            {
+                var client = await clientsDict.TryGetValueAsync(tx, bookId);
+      
+                if (client.HasValue)
+                {
+                    ClientDTO updatedClient = client.Value;
+                    
+                    if (updatedClient.Balance < FullPrice)
+                        return false;
+                }
+                await tx.CommitAsync();
+            }
+
+
             var transfersDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, TransferDTO>>("transfers");
 
             using (var tx = StateManager.CreateTransaction())
             {
-                var pendingTransfers = await transfersDict.CreateEnumerableAsync(tx);
-                using (var asyncEnumerator = pendingTransfers.GetAsyncEnumerator())
+                var transfer = new TransferDTO
                 {
-                    while (await asyncEnumerator.MoveNextAsync(CancellationToken.None))
-                    {
-                        var transfer = asyncEnumerator.Current;
-                        if (transfer.Value.Status == "Pending")
-                        {
-                            var rolledBackTransfer = transfer.Value;
-                            rolledBackTransfer.Status = "RolledBack";
+                    Id = transferId,
+                    ClientId = clientId,
+                    BookId = bookId,
+                    Quantity = quantity,
+                    Amount = FullPrice,
+                    Status = "Pending"
+                };
 
-                            await transfersDict.AddOrUpdateAsync(tx, rolledBackTransfer.Id, rolledBackTransfer, (id, oldValue) => rolledBackTransfer);
-                        }
-                    }
-                }
-
+                await transfersDict.AddOrUpdateAsync(tx, transferId, transfer, (id, oldValue) => transfer);
                 await tx.CommitAsync();
             }
+
+
+            return true;
+        }
+
+
+        public async Task<bool> Commit(int id)
+        {
+            var transferDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, TransferDTO>>("transfers");
+            double Price = 0;
+            int ClientId = 0;
+
+            using (var tx = StateManager.CreateTransaction())
+            {
+                var transfer = await transferDict.TryGetValueAsync(tx, id);
+
+                if (transfer.HasValue)
+                {
+                    TransferDTO updatedTransfer = transfer.Value;
+
+                    updatedTransfer.Status = "Committed";
+                    Price = updatedTransfer.Amount;
+                    ClientId = updatedTransfer.ClientId;    
+
+                    await transferDict.AddOrUpdateAsync(tx, id, updatedTransfer, (id, oldValue) => updatedTransfer);
+                }
+                await tx.CommitAsync();
+            }
+
+            var clientsDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, ClientDTO>>("clients");
+
+            using (var tx = StateManager.CreateTransaction())
+            {
+                var client = await clientsDict.TryGetValueAsync(tx, ClientId);
+
+                if (client.HasValue)
+                {
+                    ClientDTO updatedClient = client.Value;
+
+                    if (updatedClient.Balance < Price)
+                        return false;
+
+                    updatedClient.Balance -= Price;
+                    await clientsDict.AddOrUpdateAsync(tx, ClientId, updatedClient, (id, oldValue) => updatedClient);
+                }
+                await tx.CommitAsync();
+            }
+
+            return true;    
+        }
+
+
+        public async Task<bool> RollBack(int id)
+        {
+            var transferDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, TransferDTO>>("transfers");
+            double Price = 0;
+            int ClientId = 0;
+
+            using (var tx = StateManager.CreateTransaction())
+            {
+                var transfer = await transferDict.TryGetValueAsync(tx, id);
+
+                if (transfer.HasValue)
+                {
+                    TransferDTO updatedTransfer = transfer.Value;
+
+                    updatedTransfer.Status = "Rolledback";
+                    Price = updatedTransfer.Amount;
+                    ClientId = updatedTransfer.ClientId;
+
+                    await transferDict.AddOrUpdateAsync(tx, id, updatedTransfer, (id, oldValue) => updatedTransfer);
+                }
+                await tx.CommitAsync();
+            }
+
+            var clientsDict = await StateManager.GetOrAddAsync<IReliableDictionary<int, ClientDTO>>("clients");
+
+            using (var tx = StateManager.CreateTransaction())
+            {
+                var client = await clientsDict.TryGetValueAsync(tx, ClientId);
+
+                if (client.HasValue)
+                {
+                    ClientDTO updatedClient = client.Value;
+
+                    updatedClient.Balance += Price;
+                    await clientsDict.AddOrUpdateAsync(tx, ClientId, updatedClient, (id, oldValue) => updatedClient);
+                }
+                await tx.CommitAsync();
+            }
+
+            return true;
         }
 
 

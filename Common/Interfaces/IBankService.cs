@@ -9,12 +9,9 @@ using System.Threading.Tasks;
 
 namespace Common.Interfaces
 {
-    public interface IBankService : IService
+    public interface IBankService : ITransaction
     {
         Task<List<ClientDTO>> ListClients();
-        Task<bool> EnlistMoneyTransfer(int userSend, int userReceive, double amount);
-        Task<List<TransferDTO>> Prepare();
-        Task<List<TransferDTO>> Commit();
-        Task RollBack();
+        Task<List<TransferDTO>> GetTransfers();
     }
 }

@@ -11,8 +11,11 @@ namespace Common.Dto
     public class TransferDTO
     {
         public int Id { get; set; }          
-        public int SenderId { get; set; }       
-        public int ReceiverId { get; set; }     
+        public int ClientId { get; set; }
+
+        public int BookId { get; set; }
+
+        public int Quantity { get; set; }     
         public double Amount { get; set; }       
         public string Status { get; set; }       
     }

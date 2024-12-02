@@ -1082,11 +1082,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\CLOUDDD\\CloudMaster\\Client\\Client.csproj",
+      "projectUniqueName": "D:\\CLOUDMaster\\Client\\Client.csproj",
       "projectName": "Client",
-      "projectPath": "D:\\CLOUDDD\\CloudMaster\\Client\\Client.csproj",
+      "projectPath": "D:\\CLOUDMaster\\Client\\Client.csproj",
       "packagesPath": "C:\\Users\\Arsenije\\.nuget\\packages\\",
-      "outputPath": "D:\\CLOUDDD\\CloudMaster\\Client\\obj\\",
+      "outputPath": "D:\\CLOUDMaster\\Client\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1110,8 +1110,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj": {
-              "projectPath": "D:\\CLOUDDD\\CloudMaster\\Common\\Common.csproj"
+            "D:\\CLOUDMaster\\Common\\Common.csproj": {
+              "projectPath": "D:\\CLOUDMaster\\Common\\Common.csproj"
             }
           }
         }
@@ -1153,11 +1153,27 @@
         "warn": true,
         "downloadDependencies": [
           {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[5.0.0, 5.0.0]"
+          },
+          {
             "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
             "version": "[5.0.0, 5.0.0]"
           },
           {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[5.0.17, 5.0.17]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[5.0.0, 5.0.0]"
+          },
+          {
             "name": "Microsoft.NETCore.App.Runtime.win-x64",
+            "version": "[5.0.0, 5.0.0]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
             "version": "[5.0.0, 5.0.0]"
           },
           {
@@ -1181,5 +1197,13 @@
         "#import": []
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1900",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json."
+    }
+  ]
 }

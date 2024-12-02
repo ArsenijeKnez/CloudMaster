@@ -9,14 +9,11 @@ using System.Threading.Tasks;
 
 namespace Common.Interfaces
 {
-    public interface IBookstoreService : IService
+    public interface IBookstoreService : ITransaction
     {
         Task<List<BookDTO>> ListAvailableItems();
-        Task<bool> EnlistPurchase(int bookId, int count);
         Task<double> GetItemPrice(int bookId);
-        Task<List<PurchaseDTO>> Prepare();
-        Task<List<PurchaseDTO>> Commit();
-        Task RollBack();
+        Task<List<PurchaseDTO>> GetPurchases();
 
     }
 }

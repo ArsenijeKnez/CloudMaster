@@ -31,9 +31,9 @@ namespace Client.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EnlistPurchase(int bookId, int quantity)
+        public async Task<IActionResult> EnlistPurchase(int clientId, int bookId, int quantity)
         {
-            if (!await _communication.EnlistPurchase(bookId, quantity))
+            if (!await _communication.EnlistPurchase(clientId, bookId, quantity))
             {
                 ModelState.AddModelError("", "Invalid purchase details.");
                 ViewBag.Books = _books;
@@ -43,32 +43,10 @@ namespace Client.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetItemPriceAsync(int id)
+        public async Task<IActionResult> SeePurchases()
         {
-            double price = await _communication.GetItemPrice(id);
-            return Json(new { price });
-        }
-
-        public async Task<IActionResult> PreparePurchases()
-        {
-            var purchases = await _communication.PreparePurchases();
+            var purchases = await _communication.SeeComittedPurchases();
             return View(purchases);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CommitPurchases()
-        {
-            var committedPurchases = await _communication.CommitPurchases();
-            return View("CommittedPurchases", committedPurchases);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> RollbackPurchases()
-        {
-            var rollbackResult = await _communication.RollbackPurchases();
-            TempData["Message"] = rollbackResult ? "Rollback successful" : "Rollback failed";
-            return RedirectToAction("PreparePurchases");
         }
     }
 }

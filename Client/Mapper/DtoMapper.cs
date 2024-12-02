@@ -13,7 +13,8 @@ namespace Client.Mapper
                 Id = bookDTO.Id,
                 Title = bookDTO.Title,
                 Author = bookDTO.Author,
-                Price = bookDTO.Price
+                Price = bookDTO.Price,
+                Stock = bookDTO.Stock, 
             };
         }
 
@@ -32,8 +33,9 @@ namespace Client.Mapper
             return new MoneyTransfer
             {
                 Id = transferDTO.Id,
-                FromClientId = transferDTO.SenderId,
-                ToClientId = transferDTO.ReceiverId,
+                ClientId = transferDTO.ClientId,
+                BookId = transferDTO.BookId,
+                Quantity = transferDTO.Quantity,
                 Amount = transferDTO.Amount
             };
         }

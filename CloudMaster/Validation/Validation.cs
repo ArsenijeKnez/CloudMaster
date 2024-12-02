@@ -39,7 +39,7 @@ namespace Validation
             }
         }
 
-        public async Task<bool> EnlistPurchase(int bookId, int count)
+        public async Task<bool> EnlistPurchase(int clientId, int bookId, int count)
         {
             if (bookId <= 0 || count <= 0)
             {
@@ -51,33 +51,12 @@ namespace Validation
 
             try
             {
-                return await transactionCoordinatorProxy.EnlistPurchase(bookId, count);
+                return await transactionCoordinatorProxy.EnlistPurchase(clientId, bookId, count);
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Error in EnlistPurchase: {e.Message}");
                 return false;
-            }
-        }
-
-        public async Task<double> GetItemPrice(int bookId)
-        {
-            if (bookId <= 0)
-            {
-                Console.WriteLine("Invalid parameter: bookId must be greater than 0.");
-                return -1;
-            }
-
-            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
-
-            try
-            {
-                return await transactionCoordinatorProxy.GetItemPrice(bookId);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Error in GetItemPrice: {e.Message}");
-                return -1;
             }
         }
 
@@ -96,50 +75,14 @@ namespace Validation
             }
         }
 
-        public async Task<bool> EnlistMoneyTransfer(int userSend, int userReceive, double amount)
-        {
-            if (userSend <= 0 || userReceive <= 0 || amount <= 0)
-            {
-                Console.WriteLine("Invalid parameters: userSend, userReceive, and amount must be greater than 0.");
-                return false;
-            }
 
-            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
-
-            try
-            {
-                return await transactionCoordinatorProxy.EnlistMoneyTransfer(userSend, userReceive, amount);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Error in EnlistMoneyTransfer: {e.Message}");
-                return false;
-            }
-        }
-
-
-        public async Task<List<PurchaseDTO>> PreparePurchases()
+        public async Task<List<PurchaseDTO>> SeePurchases()
         {
             ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
 
             try
             {
-                return await transactionCoordinatorProxy.PreparePurchases();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Error in PreparePurchases: {e.Message}");
-                return null!;
-            }
-        }
-
-        public async Task<List<PurchaseDTO>> CommitPurchases()
-        {
-            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
-
-            try
-            {
-                return await transactionCoordinatorProxy.CommitPurchases();
+                return await transactionCoordinatorProxy.GetPurchases();
             }
             catch (Exception e)
             {
@@ -148,13 +91,13 @@ namespace Validation
             }
         }
 
-        public async Task<List<TransferDTO>> PrepareTransfers()
+        public async Task<List<TransferDTO>> SeeTransfers()
         {
             ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
 
             try
             {
-                return await transactionCoordinatorProxy.PrepareTransfers();
+                return await transactionCoordinatorProxy.GetTransfers();
             }
             catch (Exception e)
             {
@@ -163,50 +106,6 @@ namespace Validation
             }
         }
 
-        public async Task<List<TransferDTO>> CommitTransfers()
-        {
-            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
-
-            try
-            {
-                return await transactionCoordinatorProxy.CommitTransfers();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Error in CommitTransfers: {e.Message}");
-                return null!;
-            }
-        }
-
-        public async Task<bool> RollbackPurchases()
-        {
-            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
-
-            try
-            {
-                return await transactionCoordinatorProxy.RollbackPurchases();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Error in RollbackPurchases: {e.Message}");
-                return false;
-            }
-        }
-
-        public async Task<bool> RollbackTransfers()
-        {
-            ITransactionCoordinator transactionCoordinatorProxy = ServiceProxy.Create<ITransactionCoordinator>(new Uri(transactionCoordinatorPath));
-
-            try
-            {
-                return await transactionCoordinatorProxy.RollbackTransfers();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Error in RollbackTransfers: {e.Message}");
-                return false;
-            }
-        }
 
         #endregion
 

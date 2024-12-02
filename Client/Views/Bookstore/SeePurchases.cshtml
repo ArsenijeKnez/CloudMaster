@@ -1,13 +1,18 @@
 ﻿@model List<Client.Models.Purchase>
 @{
-    ViewData["Title"] = "Committed Purchases";
+    ViewData["Title"] = "Prepared Purchases";
 }
 
-<h2>Committed Purchases</h2>
+<h2>Commited Purchases</h2>
+
+@if (TempData["Message"] != null)
+{
+    <p>@TempData["Message"]</p>
+}
 
 @if (Model == null || !Model.Any())
 {
-    <p>No committed purchases are available.</p>
+    <p>No purchases are available.</p>
 }
 else
 {
